@@ -60,6 +60,7 @@
     "redux-saga": "^1.0.2",
     "sortablejs": "^1.6.1",
     "typescript": "^3.8.3",
+    "webpack": "^4.42.0",
     "yup": "^0.27.0"
   },
   "scripts": {
