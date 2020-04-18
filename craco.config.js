@@ -5,8 +5,7 @@ module.exports = {
     resolve: { 
       alias: {
         "@app": path.resolve(__dirname, "src/"),
-        Redux: path.resolve(__dirname, ‘src/redux/’),
-        "todo/reducer": path.resolve(__dirname, ‘src/redux/todo’)
+        redux: path.resolve(__dirname, ‘src/redux/’)
       }
     }    
   }
