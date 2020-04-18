@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import todoApp from "./todo";
 import surveyApp from "./survey";
 import surveyDetailApp from "./survey-detail";
 import chatApp from "./chat";
