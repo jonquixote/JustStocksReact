@@ -1,7 +1,7 @@
 {
-  "name": "gogo-react",
-  "version": "4.0.0",
-  "description": "Gogo - React Bootstrap 4 Admin Dashboard Template",
+  "name": "JustStocks",
+  "version": "1.0.0",
+  "description": "JustStocks",
   "private": true,
   "engines": {
     "node": ">=10.15.3"
