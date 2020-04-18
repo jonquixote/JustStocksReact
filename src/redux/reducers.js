@@ -11,6 +11,7 @@ const reducers = combineReducers({
   menu,
   settings,
   authUser,
+  todoApp,
   chatApp,
   surveyListApp,
   surveyDetailApp
