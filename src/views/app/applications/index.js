@@ -8,8 +8,6 @@ import chatApp from "./chat";
 const Applications = ({ match }) => (
   <div className="dashboard-wrapper">
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/todo`} />
-      <Route path={`${match.url}/todo`} component={todoApp} />
       <Route
         path={`${match.url}/survey/:surveyid`}
         component={surveyDetailApp}
