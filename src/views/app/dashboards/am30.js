@@ -45,13 +45,10 @@ class AM30Dashboard extends Component {
         </Row>
 
         <Row>
-          <Colxx xl="12" lg="12" className="mb-4">
+          <Colxx sm="12" md="6" className="mb-4">
             <HoldingsFundamentals/>
           </Colxx>
-        </Row>
-
-        <Row>
-          <Colxx xl="12" lg="12" className="mb-4">
+          <Colxx sm="12" md="6" className="mb-4">
             <HoldingsHistoricals/>
           </Colxx>
         </Row>

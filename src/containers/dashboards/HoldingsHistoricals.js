@@ -1,12 +1,21 @@
 import React from "react";
 import { Card, CardBody, CardTitle } from "reactstrap";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import ReactTable from "react-table";
+import classnames from "classnames";
 
 import IntlMessages from "../../helpers/IntlMessages";
 import Pagination from "../../components/DatatablePagination";
 
 import data from "../../data/holdings_historicals";
 
+const CustomTbodyComponent = props => (
+  <div {...props} className={classnames("rt-tbody", props.className || [])}>
+    <PerfectScrollbar option={{ suppressScrollX: true }}>
+      {props.children}
+    </PerfectScrollbar>
+  </div>
+);
 
 const HoldingsHistoricals = ({title="Holdings Historical"}) => {
   const columns = [
@@ -43,13 +52,14 @@ const HoldingsHistoricals = ({title="Holdings Historical"}) => {
           <IntlMessages id={title} />
         </CardTitle>
         <ReactTable
-          defaultPageSize={6}
-          data={data.slice(0, 30)}
+          data={data}
+          TbodyComponent={CustomTbodyComponent}
           columns={columns}
-          minRows={0}
+          defaultPageSize={20}
           showPageJump={false}
           showPageSizeOptions={false}
-          PaginationComponent={Pagination}
+          showPagination={false}
+          className={"react-table-fixed-height"}
         />
       </CardBody>
     </Card>
