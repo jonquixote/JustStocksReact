@@ -68,7 +68,7 @@ const HoldingsFundamentals = ({title="Holdings Fundamental"}) => {
           <IntlMessages id={title} />
         </CardTitle>
         <ReactTable
-          defaultPageSize={6}
+          defaultPageSize={4}
           data={data.slice(0, 30)}
           columns={columns}
           minRows={0}

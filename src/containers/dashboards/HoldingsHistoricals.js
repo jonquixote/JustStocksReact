@@ -55,7 +55,7 @@ const HoldingsHistoricals = ({title="Holdings Historical"}) => {
           data={data}
           TbodyComponent={CustomTbodyComponent}
           columns={columns}
-          defaultPageSize={20}
+          defaultPageSize={30}
           showPageJump={false}
           showPageSizeOptions={false}
           showPagination={false}

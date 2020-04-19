@@ -39,6 +39,15 @@ class AM30Dashboard extends Component {
         </Row>
 
         <Row>
+          <Colxx sm="12" md="6" className="mb-4">
+            <WebsiteVisitsChartCard/>
+          </Colxx>
+          <Colxx sm="12" md="6" className="mb-4">
+            <HoldingsFundamentals/>
+          </Colxx>
+        </Row>
+
+        <Row>
           <Colxx xl="12" lg="12" className="mb-4">
             <HoldingsReturns/>
           </Colxx>
@@ -46,16 +55,7 @@ class AM30Dashboard extends Component {
 
         <Row>
           <Colxx sm="12" md="6" className="mb-4">
-            <HoldingsFundamentals/>
-          </Colxx>
-          <Colxx sm="12" md="6" className="mb-4">
             <HoldingsHistoricals/>
-          </Colxx>
-        </Row>
-
-        <Row>
-          <Colxx sm="12" md="6" className="mb-4">
-            <WebsiteVisitsChartCard/>
           </Colxx>
           <Colxx sm="12" md="6" className="mb-4">
             <ConversionRatesChartCard/>
