@@ -2,9 +2,14 @@ const data = [
   {
     id: "dashboards",
     icon: "iconsminds-shop-4",
-    label: "menu.dashboards",
+    label: "Strategies",
     to: "/app/dashboards",
     subs: [
+      {
+        icon: "simple-icon-briefcase",
+        label: "AM-30",
+        to: "/app/dashboards/am30"
+      },
       {
         icon: "simple-icon-briefcase",
         label: "menu.default",
