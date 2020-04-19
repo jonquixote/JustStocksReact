@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { injectIntl } from 'react-intl';
-import { Row } from "reactstrap";
+import { Row, Card, CardBody, CardTitle, Table } from "reactstrap";
 
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
@@ -25,6 +25,12 @@ import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCa
 import WebsiteVisitsChartCard from "../../../containers/dashboards/WebsiteVisitsChartCard";
 import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
 import TopRatedItems from "../../../containers/dashboards/TopRatedItems";
+import StratSumStat from "../../../containers/dashboards/StratSumStat";
+
+import IntlMessages from "../../../helpers/IntlMessages";
+
+import infodata from "../../../data/strategy_summaries";
+import infostats from "../../../data/strat_sum_stat";
 
 class AM30Dashboard extends Component {
   render() {
@@ -39,11 +45,31 @@ class AM30Dashboard extends Component {
         </Row>
 
         <Row>
-          <Colxx sm="12" md="6" className="mb-4">
+          <Colxx xxs="12" sm="6" md="7" className="mb-4">
             <WebsiteVisitsChartCard/>
+            <StratSumStat/>
           </Colxx>
-          <Colxx sm="12" md="6" className="mb-4">
-            <HoldingsFundamentals/>
+          <Colxx xxs="12" sm="6" md="5">
+            <Card className="mb-4">
+              <CardBody>
+                <CardTitle>
+                  <IntlMessages id="General Info" />
+                </CardTitle>
+                <Table>
+                  <tbody>
+                    {infodata.map(( listValue, index ) => {
+                      
+                      return (
+                        <tr key={index}>
+                          <td>{listValue.info_name}</td>
+                          <td>{listValue.info_value}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
           </Colxx>
         </Row>
 

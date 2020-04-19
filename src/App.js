@@ -51,7 +51,7 @@ class App extends Component {
             {isMultiColorActive && <ColorSwitcher />}
             <Router>
               <Switch>
-                <AuthRoute path="/app" authUser={loginUser} component={app} />
+                <Route path="/app" component={app} />
                 <Route path="/user" component={user} />
                 <Route path="/error" exact component={error} />
                 <Route path="/" exact component={main} />
