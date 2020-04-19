@@ -259,9 +259,9 @@ class TopNav extends Component {
               <a
                 className="btn btn-outline-primary btn-sm mb-2 mr-3"
                 target="_top"
-                href="https://themeforest.net/cart/configure_before_adding/22544383?license=regular&ref=ColoredStrategies&size=source"
+                href="https://juststocks.com"
               >
-                <IntlMessages id="user.buy" />
+                <IntlMessages id="Subscribe" />
               </a>
             </div>
             <TopnavEasyAccess />

@@ -10,7 +10,7 @@ import RecentOrders from "../../../containers/dashboards/RecentOrders";
 import Logs from "../../../containers/dashboards/Logs";
 import Tickets from "../../../containers/dashboards/Tickets";
 import Calendar from "../../../containers/dashboards/Calendar";
-import BestSellers from "../../../containers/dashboards/BestSellers";
+import HoldingsReturns from "../../../containers/dashboards/HoldingsReturns";
 import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
 import GradientCardContainer from "../../../containers/dashboards/GradientCardContainer";
 import Cakes from "../../../containers/dashboards/Cakes";
@@ -38,7 +38,7 @@ class DefaultDashboard extends Component {
 
         <Row>
           <Colxx xl="12" lg="12" className="mb-4">
-            <BestSellers/>
+            <HoldingsReturns/>
           </Colxx>
         </Row>
 

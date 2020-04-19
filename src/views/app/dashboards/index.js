@@ -5,11 +5,13 @@ import defaultDash from './default';
 import contentDash from './content';
 import analyticsDash from './analytics';
 import ecommerceDash from './ecommerce';
+import am30Dash from './am30';
 
 const Dashboards = ({ match }) => (
     <div className="dashboard-wrapper">
         <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />
+            <Redirect exact from={`${match.url}/`} to={`${match.url}/am30`} />
+            <Route path={`${match.url}/am30`} component={am30Dash} />
             <Route path={`${match.url}/default`} component={defaultDash} />
             <Route path={`${match.url}/content`} component={contentDash} />
             <Route path={`${match.url}/ecommerce`} component={ecommerceDash} />
