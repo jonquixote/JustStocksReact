@@ -33,7 +33,7 @@ const HoldingsReturns = ({title="Holdings Return"}) => {
     {
       Header: "Weight Return",
       accessor: "weight_return",
-      Cell: props => <p className="list-item-heading">{props.value}</p>
+      Cell: props => <p className="list-muted">{props.value}</p>
     },
     {
       Header: "1 Week",
