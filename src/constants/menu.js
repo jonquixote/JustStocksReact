@@ -6,29 +6,49 @@ const data = [
     to: "/app/dashboards",
     subs: [
       {
-        icon: "simple-icon-briefcase",
-        label: "AM-30",
-        to: "/app/dashboards/am30"
+        label: "AM",
+        to: "/app/dashboards/AM"
+      },
+      {
+        label: "AMC",
+        to: "/app/dashboards/AMC"
+      },
+      {
+        label: "AM6",
+        to: "/app/dashboards/AM6"
+      },
+      {
+        label: "AM15",
+        to: "/app/dashboards/AM15"
+      },
+      {
+        label: "AM30",
+        to: "/app/dashboards/AM30"
+      },
+      {
+        label: "Biotech-T",
+        to: "/app/dashboards/Biotech-T"
+      },
+      {
+        label: "Buybacks",
+        to: "/app/dashboards/Buybacks"
+      },
+      {
+        label: "CDV",
+        to: "/app/dashboards/CDV"
+      },
+      {
+        label: "CK-RV",
+        to: "/app/dashboards/CK-RV"
+      },
+      {
+        label: "CK-T",
+        to: "/app/dashboards/CK-T"
       },
       {
         icon: "simple-icon-briefcase",
         label: "menu.default",
         to: "/app/dashboards/default"
-      },
-      {
-        icon: "simple-icon-pie-chart",
-        label: "menu.analytics",
-        to: "/app/dashboards/analytics"
-      },
-      {
-        icon: "simple-icon-basket-loaded",
-        label: "menu.ecommerce",
-        to: "/app/dashboards/ecommerce"
-      },
-      {
-        icon: "simple-icon-doc",
-        label: "menu.content",
-        to: "/app/dashboards/content"
       }
     ]
   },

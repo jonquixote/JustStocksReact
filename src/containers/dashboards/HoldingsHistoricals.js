@@ -5,7 +5,6 @@ import ReactTable from "react-table";
 import classnames from "classnames";
 
 import IntlMessages from "../../helpers/IntlMessages";
-import Pagination from "../../components/DatatablePagination";
 
 import data from "../../data/holdings_historicals";
 
