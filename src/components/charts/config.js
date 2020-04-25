@@ -121,8 +121,8 @@ export const scatterChartOptions = {
         ticks: {
           beginAtZero: true,
           stepSize: 20,
-          min: -80,
-          max: 80,
+          min: -100,
+          max: 100,
           padding: 20
         }
       }
@@ -133,8 +133,15 @@ export const scatterChartOptions = {
           display: true,
           lineWidth: 1,
           color: 'rgba(0,0,0,0.1)'
+        },
+        ticks: {
+          beginAtZero: true,
+          stepSize: 20,
+          min: -100,
+          max: 100,
+          padding: 20
         }
-      }
+      },
     ]
   },
   tooltips: chartTooltip

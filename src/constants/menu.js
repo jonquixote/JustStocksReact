@@ -46,6 +46,150 @@ const data = [
         to: "/app/dashboards/CK-T"
       },
       {
+        label: "CK1",
+        to: "/app/dashboards/CK1"
+      },
+      {
+        label: "CK2",
+        to: "/app/dashboards/CK2"
+      },
+      {
+        label: "CKDM-T",
+        to: "/app/dashboards/CKDM-T"
+      },
+      {
+        label: "CKV",
+        to: "/app/dashboards/CKV"
+      },
+      {
+        label: "CM",
+        to: "/app/dashboards/CM"
+      },
+      {
+        label: "CM15",
+        to: "/app/dashboards/CM15"
+      },
+      {
+        label: "Compounders",
+        to: "/app/dashboards/Compounders"
+      },
+      {
+        label: "Delevered Value 2",
+        to: "/app/dashboards/Delevered-Value-2"
+      },
+      {
+        label: "DG",
+        to: "/app/dashboards/DG"
+      },
+      {
+        label: "Dividend Growers",
+        to: "/app/dashboards/Dividend-Growers"
+      },
+      {
+        label: "Dividend Payout",
+        to: "/app/dashboards/Dividend-Payout"
+      },
+      {
+        label: "DP",
+        to: "/app/dashboards/DP"
+      },
+      {
+        label: "G2F",
+        to: "/app/dashboards/G2F"
+      },
+      {
+        label: "G2F3",
+        to: "/app/dashboards/G2F3"
+      },
+      {
+        label: "G2FC",
+        to: "/app/dashboards/G2FC"
+      },
+      {
+        label: "HLV",
+        to: "/app/dashboards/HLV"
+      },
+      {
+        label: "HLV1",
+        to: "/app/dashboards/HLV1"
+      },
+      {
+        label: "HLVC",
+        to: "/app/dashboards/HLVC"
+      },
+      {
+        label: "Insurance",
+        to: "/app/dashboards/INSURANCE"
+      },
+      {
+        label: "LCM-T",
+        to: "/app/dashboards/LCM-T"
+      },
+      {
+        label: "MF30",
+        to: "/app/dashboards/MF30"
+      },
+      {
+        label: "MF2",
+        to: "/app/dashboards/MF2"
+      },
+      {
+        label: "MFI",
+        to: "/app/dashboards/MFI"
+      },
+      {
+        label: "Natural Monopolies",
+        to: "/app/dashboards/Natural-Monopolies"
+      },
+      {
+        label: "NM",
+        to: "/app/dashboards/NM"
+      },
+      {
+        label: "NM2",
+        to: "/app/dashboards/NM2"
+      },
+      {
+        label: "NN",
+        to: "/app/dashboards/NN"
+      },
+      {
+        label: "PB",
+        to: "/app/dashboards/PB"
+      },
+      {
+        label: "PBBPD",
+        to: "/app/dashboards/PBBPD"
+      },
+      {
+        label: "PE",
+        to: "/app/dashboards/PE"
+      },
+      {
+        label: "PEPBD",
+        to: "/app/dashboards/PEPBD"
+      },
+      {
+        label: "PS",
+        to: "/app/dashboards/PS"
+      },
+      {
+        label: "PSPBD",
+        to: "/app/dashboards/PSPBD"
+      },
+      {
+        label: "SG",
+        to: "/app/dashboards/SG"
+      },
+      {
+        label: "SGC",
+        to: "/app/dashboards/SGC"
+      },
+      {
+        label: "WC",
+        to: "/app/dashboards/WC"
+      },
+      {
         icon: "simple-icon-briefcase",
         label: "menu.default",
         to: "/app/dashboards/default"
