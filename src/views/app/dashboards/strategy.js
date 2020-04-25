@@ -21,11 +21,11 @@ import Pagination from "../../../components/DatatablePagination";
 import infodata from "../../../data/strategy_summaries";
 import infostats from "../../../data/strat_sum_stat";
 import hr_column from "../../../data/hr_column";
-import ps_column from "../../../data/ps_column";
 import axios from "axios";
 
 class StrategyDashboard extends Component {
   state = {
+    strategy_name: this.props.match.params,
     holdings_returns: [],
     stats_performances: [],
     strategy_summaries: [],
@@ -33,7 +33,7 @@ class StrategyDashboard extends Component {
   }
   componentDidMount() {
   var self = this
-  const { strategy_name } = this.props.match.params
+  const { strategy_name } = this.state.strategy_name
   console.log('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
   axios
     .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
@@ -64,6 +64,42 @@ class StrategyDashboard extends Component {
      })
     .catch(error => this.setState({ error }));
   };
+
+  componentDidUpdate(prevProps) {
+    var self = this
+    const { strategy_name } = this.state.strategy_name
+    if (prevProps.match.params !== this.props.match.params) {
+      this.setState({ strategy_name: this.props.match.params })
+      axios
+        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({holdings_returns: response.data})
+         })
+        .catch(error => this.setState({ error }));
+      axios
+        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({stats_performances: response.data})
+         })
+        .catch(error => this.setState({ error }));
+      axios
+        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/strategy_summaries/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({strategy_summaries: response.data})
+         })
+        .catch(error => this.setState({ error }));
+      axios
+        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/strategy_summary_stats/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({strategy_summary_stats: response.data})
+         })
+        .catch(error => this.setState({ error }));
+    }
+  }
 
   render() {
     console.log(this.state.holdings_returns.data)
@@ -104,6 +140,13 @@ class StrategyDashboard extends Component {
                   <IntlMessages id={"Performance Statistics"} />
                 </CardTitle>
                 <Table>
+                  <thead>
+                    <tr>
+                      <th>Return %</th>
+                      <th>Model</th>
+                      <th>S&P 500 (SPY)</th>
+                    </tr>
+                  </thead>
                   <tbody>
                     {stats_perf.reverse().map(( listValue, index ) => {
                       

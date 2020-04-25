@@ -24,7 +24,7 @@ const hr_column = [
     {
       Header: "Weight Return",
       accessor: "weight_return",
-      Cell: props => <p className="list-muted">{props.value}</p>
+      Cell: props => <p className="text-muted">{props.value}</p>
     },
     {
       Header: "1 Week",
