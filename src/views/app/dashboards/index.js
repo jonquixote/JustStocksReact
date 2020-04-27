@@ -10,7 +10,7 @@ import strategyDash from './strategy';
 const Dashboards = ({ match }) => (
     <div className="dashboard-wrapper">
         <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />
+            <Redirect exact from={`${match.url}/`} to={`${match.url}/AM`} />
             <Route path={`${match.url}/:strategy_name`} exact component={strategyDash} />
             <Route path={`${match.url}/default`} component={defaultDash} />
             <Route path={`${match.url}/content`} component={contentDash} />

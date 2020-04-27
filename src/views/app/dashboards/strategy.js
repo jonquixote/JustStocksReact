@@ -36,14 +36,16 @@ class StrategyDashboard extends Component {
   const { strategy_name } = this.state.strategy_name
   console.log('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    .get('http://localhost:3000/api/strategies/all/holdings_returns/' + strategy_name)
+    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_returns: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
+    .get('http://localhost:3000/api/strategies/all/stats_performances/' + strategy_name)
+    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({stats_performances: response.data})
@@ -121,7 +123,6 @@ class StrategyDashboard extends Component {
 
         <Row>
           <Colxx xxs="12" sm="6" md="8" className="mb-4">
-            <WebsiteVisitsChartCard/>
             <Card className="h-100">
               <CardBody>
                 <CardTitle>

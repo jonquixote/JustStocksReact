@@ -10,7 +10,6 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@craco/craco": "^5.6.4",
-    "@firebase/app": "^0.6.2",
     "@types/googlemaps": "^3.39.3",
     "@types/markerclustererplus": "^2.1.33",
     "availity-reactstrap-validation": "^2.6.1",
@@ -18,7 +17,7 @@
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.1.0",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
     "d3": "^5.15.1",
     "d3-dsv": "^1.2.0",
@@ -27,22 +26,23 @@
     "d3-time-format": "^2.2.3",
     "dropzone": "^5.7.0",
     "express": "^4.17.1",
-    "firebase": "^7.14.1",
+    "firebase": "^7.14.2",
     "formik": "^1.5.8",
     "grpc": "^1.24.2",
     "install": "^0.13.0",
-    "moment": "^2.22.2",
+    "moment": "^2.24.0",
     "mousetrap": "^1.6.5",
     "node-gyp": "^6.1.0",
     "node-pre-gyp": "^0.14.0",
-    "rc-slider": "^8.6.1",
-    "rc-switch": "^1.6.0",
+    "rc-slider": "^8.7.1",
+    "rc-switch": "^1.9.0",
     "react": "^16.13.1",
-    "react-autosuggest": "^9.3.4",
-    "react-big-calendar": "^0.20.3",
-    "react-chartjs-2": "^2.7.4",
-    "react-circular-progressbar": "^1.0.0",
-    "react-contextmenu": "^2.9.4",
+    "react-autosuggest": "^9.4.3",
+    "react-big-calendar": "^0.20.4",
+    "react-canvas-js": "^1.0.1",
+    "react-chartjs-2": "^2.9.0",
+    "react-circular-progressbar": "^1.2.1",
+    "react-contextmenu": "^2.13.0",
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^10.2.2",
@@ -85,8 +85,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "node-sass": "^4.11.0"
-  }
+  },
+  "plugins": [
+    "@babel/plugin-proposal-export-default-from"
+  ]
 }
