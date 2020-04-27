@@ -180,14 +180,14 @@ class StrategyDashboard extends Component {
                   </Colxx>
                 </Row>
                 <Row>
-                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
-                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px', display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
+                  <Colxx xxs="4" sm="12" md="4" className="mb-4" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
                   </Colxx>
-                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
-                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px', display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
+                  <Colxx xxs="4" sm="12" md="4" className="mb-4" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
                   </Colxx>
-                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
-                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px', display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
+                  <Colxx xxs="4" sm="12" md="4" className="mb-4" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
                   </Colxx>
                 </Row>
                 { hrshowing 
