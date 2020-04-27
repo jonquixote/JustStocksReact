@@ -43,32 +43,32 @@ class StrategyDashboard extends Component {
   const { strategy_name } = this.state.strategy_name
   console.log('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
   axios
-    .get('http://localhost:3000/api/strategies/all/holdings_returns/' + strategy_name)
-    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    // .get('http://localhost:3000/api/strategies/all/holdings_returns/' + strategy_name)
+    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_returns: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('http://localhost:3000/api/strategies/all/holdings_historicals/' + strategy_name)
-    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    // .get('http://localhost:3000/api/strategies/all/holdings_historicals/' + strategy_name)
+    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_historicalss/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_historicals: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('http://localhost:3000/api/strategies/all/holdings_fundamentals/' + strategy_name)
-    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    // .get('http://localhost:3000/api/strategies/all/holdings_fundamentals/' + strategy_name)
+    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_fundamentals/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_fundamentals: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('http://localhost:3000/api/strategies/all/stats_performances/' + strategy_name)
-    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
+    // .get('http://localhost:3000/api/strategies/all/stats_performances/' + strategy_name)
+    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({stats_performances: response.data})
@@ -297,36 +297,6 @@ class StrategyDashboard extends Component {
                 </Table>
               </CardBody>
             </Card>
-          </Colxx>
-        </Row>
-
-        <Row>
-          <Colxx xl="12" lg="12" className="mb-4">
-            <Card className="h-100">
-              <CardBody>
-                <CardTitle>
-                  <IntlMessages id={"Holdings Returns"} />
-                </CardTitle>
-                <ReactTable
-                  defaultPageSize={6}
-                  data={this.state.holdings_returns.slice(0, 30)}
-                  columns={hr_column}
-                  minRows={0}
-                  showPageJump={false}
-                  showPageSizeOptions={false}
-                  PaginationComponent={Pagination}
-                />
-              </CardBody>
-            </Card>
-          </Colxx>
-        </Row>
-
-        <Row>
-          <Colxx sm="12" md="6" className="mb-4">
-            <HoldingsHistoricals/>
-          </Colxx>
-          <Colxx sm="12" md="6" className="mb-4">
-            <ConversionRatesChartCard/>
           </Colxx>
         </Row>
 
