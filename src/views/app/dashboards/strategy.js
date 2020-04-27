@@ -166,9 +166,19 @@ class StrategyDashboard extends Component {
           <Colxx xxs="12" sm="6" md="8" className="mb-4">
             <Card className="h-100">
               <CardBody>
-                <CardTitle>
-                  <IntlMessages id={"Holdings"} />
-                </CardTitle>
+                <Row>
+                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                    
+                  </Colxx>
+                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                    <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                      <IntlMessages id={"Holdings"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
+                    </CardTitle>
+                  </Colxx>
+                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                    
+                  </Colxx>
+                </Row>
                 <Row>
                   <Colxx xxs="4" sm="4" md="4" className="mb-4">
                     <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
