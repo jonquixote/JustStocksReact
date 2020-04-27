@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { injectIntl } from 'react-intl';
-import { Row, Card, CardBody, CardTitle, Table } from "reactstrap";
+import { Row, Button, Card, CardBody, CardTitle, Table } from "reactstrap";
 
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
@@ -21,12 +21,19 @@ import Pagination from "../../../components/DatatablePagination";
 import infodata from "../../../data/strategy_summaries";
 import infostats from "../../../data/strat_sum_stat";
 import hr_column from "../../../data/hr_column";
+import hf_column from "../../../data/hf_column";
+import hh_column from "../../../data/hh_column";
 import axios from "axios";
 
 class StrategyDashboard extends Component {
   state = {
     strategy_name: this.props.match.params,
+    hrshowing: true,
+    hhshowing: false,
+    hfshowing:  false,
     holdings_returns: [],
+    holdings_historicals: [],
+    holdings_fundamentals: [],
     stats_performances: [],
     strategy_summaries: [],
     strategy_summary_stats: []
@@ -41,6 +48,22 @@ class StrategyDashboard extends Component {
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_returns: response.data})
+     })
+    .catch(error => this.setState({ error }));
+  axios
+    .get('http://localhost:3000/api/strategies/all/holdings_historicals/' + strategy_name)
+    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({holdings_historicals: response.data})
+     })
+    .catch(error => this.setState({ error }));
+  axios
+    .get('http://localhost:3000/api/strategies/all/holdings_fundamentals/' + strategy_name)
+    // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({holdings_fundamentals: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
@@ -79,6 +102,22 @@ class StrategyDashboard extends Component {
            self.setState({holdings_returns: response.data})
          })
         .catch(error => this.setState({ error }));
+        axios
+          .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_historicals/' + strategy_name)
+          // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+          .then(function (response) {
+             console.log(response.data)
+             self.setState({holdings_historicals: response.data})
+           })
+          .catch(error => this.setState({ error }));
+        axios
+          .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_fundamentals/' + strategy_name)
+          // .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+          .then(function (response) {
+             console.log(response.data)
+             self.setState({holdings_fundamentals: response.data})
+           })
+          .catch(error => this.setState({ error }));
       axios
         .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
         .then(function (response) {
@@ -109,8 +148,10 @@ class StrategyDashboard extends Component {
     const { strategy_name } = this.props.match.params
     const stats_perf = this.state.stats_performances.slice(35, 41)
     const info_data = this.state.strategy_summaries.slice(0, 11)
-
     const strategy_stats = this.state.strategy_summary_stats.slice(0, 11)
+    const { hrshowing } = this.state;
+    const { hfshowing } = this.state;
+    const { hhshowing } = this.state;
     return (
       <Fragment>
         <Row>
@@ -126,17 +167,61 @@ class StrategyDashboard extends Component {
             <Card className="h-100">
               <CardBody>
                 <CardTitle>
-                  <IntlMessages id={"Holdings Returns"} />
+                  <IntlMessages id={"Holdings"} />
                 </CardTitle>
-                <ReactTable
-                  defaultPageSize={6}
-                  data={this.state.holdings_returns.slice(0, 30)}
-                  columns={hr_column}
-                  minRows={0}
-                  showPageJump={false}
-                  showPageSizeOptions={false}
-                  PaginationComponent={Pagination}
-                />
+                <Row>
+                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                    <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
+                  </Colxx>
+                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                    <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
+                  </Colxx>
+                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                    <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
+                  </Colxx>
+                </Row>
+                { hrshowing 
+                    ? <div>
+                        <ReactTable
+                          defaultPageSize={6}
+                          data={this.state.holdings_returns.slice(0, 30)}
+                          columns={hr_column}
+                          minRows={0}
+                          showPageJump={false}
+                          showPageSizeOptions={false}
+                          PaginationComponent={Pagination}
+                        />
+                      </div>
+                    : null
+                }
+              { hhshowing 
+                  ? <div>
+                      <ReactTable
+                        defaultPageSize={6}
+                        data={this.state.holdings_historicals.slice(0, 30)}
+                        columns={hh_column}
+                        minRows={0}
+                        showPageJump={false}
+                        showPageSizeOptions={false}
+                        PaginationComponent={Pagination}
+                      />
+                    </div>
+                  : null
+              }
+              { hfshowing 
+                  ? <div>
+                      <ReactTable
+                        defaultPageSize={6}
+                        data={this.state.holdings_fundamentals.slice(0, 30)}
+                        columns={hf_column}
+                        minRows={0}
+                        showPageJump={false}
+                        showPageSizeOptions={false}
+                        PaginationComponent={Pagination}
+                      />
+                    </div>
+                  : null
+              }
                 <CardTitle>
                   <IntlMessages id={"Performance Statistics"} />
                 </CardTitle>

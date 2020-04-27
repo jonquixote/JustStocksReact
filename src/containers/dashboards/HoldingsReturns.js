@@ -7,6 +7,8 @@ import Pagination from "../../components/DatatablePagination";
 
 import data from "../../data/holdings_returns";
 
+import hr_column from "../../data/hr_column";
+
 
 const HoldingsReturns = ({title="Holdings Return"}) => {
   const columns = [
@@ -60,12 +62,12 @@ const HoldingsReturns = ({title="Holdings Return"}) => {
     <Card className="h-100">
       <CardBody>
         <CardTitle>
-          <IntlMessages id={title} />
+          <IntlMessages id={"Holdings Returns"} />
         </CardTitle>
         <ReactTable
           defaultPageSize={6}
-          data={data.slice(0, 30)}
-          columns={columns}
+          data={this.state.holdings_returns.slice(0, 30)}
+          columns={hr_column}
           minRows={0}
           showPageJump={false}
           showPageSizeOptions={false}
