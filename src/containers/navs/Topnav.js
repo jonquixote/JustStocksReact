@@ -248,7 +248,7 @@ class TopNav extends Component {
           </UncontrolledDropdown>
         </div>
 
-        <a className="navbar-logo" href="/">
+        <a className="navbar-logo" style={{ width: '237px', height: '55px'}} href="/">
           <span className="logo d-none d-xs-block" />
           <span className="logo-mobile d-block d-xs-none" />
         </a>
