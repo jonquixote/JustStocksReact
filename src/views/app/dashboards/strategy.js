@@ -163,35 +163,38 @@ class StrategyDashboard extends Component {
         </Row>
 
         <Row>
-          <Colxx xxs="12" sm="6" md="8" className="mb-4">
+          <Colxx xxs="12" sm="6" md="8">
             <Card className="h-100">
               <CardBody>
                 <Row>
-                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                  <Colxx xxs="4" sm="4" md="4">
                     
                   </Colxx>
-                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                  <Colxx xxs="4" sm="4" md="4">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <IntlMessages id={"Holdings"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
+                      <h1>Holdings</h1>
                     </CardTitle>
                   </Colxx>
-                  <Colxx xxs="4" sm="4" md="4" className="mb-4">
+                  <Colxx xxs="4" sm="4" md="4">
                     
                   </Colxx>
                 </Row>
                 <Row>
                   <Colxx xxs="4" sm="4" md="4" className="mb-4">
-                    <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
+                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px', display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4" className="mb-4">
-                    <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
+                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px', display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4" className="mb-4">
-                    <Button variant="outline-light" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
+                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px', display: 'flex', justifyContent: 'center', margin: 'auto'}} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
                   </Colxx>
                 </Row>
                 { hrshowing 
                     ? <div>
+                      <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                        <IntlMessages id={"Returns"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
+                      </CardTitle>
                         <ReactTable
                           defaultPageSize={6}
                           data={this.state.holdings_returns.slice(0, 30)}
@@ -206,6 +209,9 @@ class StrategyDashboard extends Component {
                 }
               { hhshowing 
                   ? <div>
+                      <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                        <IntlMessages id={"Historicals"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
+                      </CardTitle>
                       <ReactTable
                         defaultPageSize={6}
                         data={this.state.holdings_historicals.slice(0, 30)}
@@ -220,6 +226,9 @@ class StrategyDashboard extends Component {
               }
               { hfshowing 
                   ? <div>
+                      <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                        <IntlMessages id={"Fundamentals"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
+                      </CardTitle>
                       <ReactTable
                         defaultPageSize={6}
                         data={this.state.holdings_fundamentals.slice(0, 30)}
