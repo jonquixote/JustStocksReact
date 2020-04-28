@@ -223,30 +223,6 @@ class TopNav extends Component {
           </span>
         </div>
 
-        <div className="d-inline-block">
-          <UncontrolledDropdown className="ml-2">
-            <DropdownToggle
-              caret
-              color="light"
-              size="sm"
-              className="language-button"
-            >
-              <span className="name">{locale.toUpperCase()}</span>
-            </DropdownToggle>
-            <DropdownMenu className="mt-3" right>
-              {localeOptions.map(l => {
-                return (
-                  <DropdownItem
-                    onClick={() => this.handleChangeLocale(l.id)}
-                    key={l.id}
-                  >
-                    {l.name}
-                  </DropdownItem>
-                );
-              })}
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
 
         <a className="navbar-logo" style={{ width: '237px', height: '55px'}} href="/">
           <span className="logo d-none d-xs-block" />
@@ -259,13 +235,12 @@ class TopNav extends Component {
               <a
                 className="btn btn-outline-primary btn-sm mb-2 mr-3"
                 target="_top"
-                href="https://juststocks.com"
+                href="https://www.juststocks.com"
               >
                 <IntlMessages id="Subscribe" />
               </a>
             </div>
             <TopnavEasyAccess />
-            <TopnavNotifications />
             <button
               className="header-icon btn btn-empty d-none d-sm-inline-block"
               type="button"
