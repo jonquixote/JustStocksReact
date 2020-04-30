@@ -24,7 +24,7 @@ import hr_column from "../../../data/hr_column";
 import hf_column from "../../../data/hf_column";
 import hh_column from "../../../data/hh_column";
 
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Label, Tooltip } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Label, Tooltip, ResponsiveContainer } from 'recharts';
 import axios from "axios";
 import moment from "moment";
 
@@ -178,7 +178,7 @@ class StrategyDashboard extends Component {
       {name: 'Page G', uv: 3490, pv: 4300, amt: 2100}]
     const yoyo = chart_data[0];
     console.log(yoyo);
-    const tickFormatter = (tick) => moment(tick).format('MMMM YYYY');
+    const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
     const dateFormatter = (dataKey) => moment(dataKey).format('M/DD/YY');
     return (
       <Fragment>
@@ -208,15 +208,16 @@ class StrategyDashboard extends Component {
                 </Row>
               <Row>
                 <Colxx xxs="12" sm="12" md="12">
-                  <AreaChart width={520} height={346} data={chart_data}
-                        margin={{top: 0, right: 0, left: 0, bottom: 0}}>
-                    <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} name={dateFormatter} />
-                    <YAxis/>
-                    <Tooltip/>
-                    <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#8884d8' fill='#8884d8' />
-                    <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#82ca9d' fill='#82ca9d' />
-                  </AreaChart>
+                  <ResponsiveContainer width="99%" aspect={2}>
+                    <AreaChart width={500} height={400} data={chart_data} margin={{top: 0, right: 20, left: 0, bottom: 0}}>
+                      <CartesianGrid strokeDasharray="3 3"/>
+                      <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} name={dateFormatter} />
+                      <YAxis/>
+                      <Tooltip/>
+                      <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#8884d8' fill='#8884d8' />
+                      <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#82ca9d' fill='#82ca9d' />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </Colxx>
               </Row>
               <CardBody>
