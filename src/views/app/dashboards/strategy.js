@@ -23,7 +23,10 @@ import infostats from "../../../data/strat_sum_stat";
 import hr_column from "../../../data/hr_column";
 import hf_column from "../../../data/hf_column";
 import hh_column from "../../../data/hh_column";
+
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Label, Tooltip } from 'recharts';
 import axios from "axios";
+import moment from "moment";
 
 class StrategyDashboard extends Component {
   state = {
@@ -36,7 +39,8 @@ class StrategyDashboard extends Component {
     holdings_fundamentals: [],
     stats_performances: [],
     strategy_summaries: [],
-    strategy_summary_stats: []
+    strategy_summary_stats: [],
+    chart_data: []
   }
   componentDidMount() {
   var self = this
@@ -84,7 +88,15 @@ class StrategyDashboard extends Component {
        self.setState({strategy_summary_stats: response.data})
      })
     .catch(error => this.setState({ error }));
+  axios
+    .get('https://cryptic-retreat-20149.herokuapp.com/api/charts')
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({chart_data: response.data})
+     })
+    .catch(error => this.setState({ error }));
   };
+
 
   componentDidUpdate(prevProps) {
     var self = this
@@ -133,10 +145,18 @@ class StrategyDashboard extends Component {
            self.setState({strategy_summary_stats: response.data})
          })
         .catch(error => this.setState({ error }));
+      axios
+        .get('https://cryptic-retreat-20149.herokuapp.com/api/charts')
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({chart_data: response.data})
+         })
+        .catch(error => this.setState({ error }));
     }
   }
 
   render() {
+    moment.locale('en');
     console.log(this.state.holdings_returns.data)
     const {messages} = this.props.intl;
     const { strategy_name } = this.props.match.params
@@ -146,20 +166,61 @@ class StrategyDashboard extends Component {
     const { hrshowing } = this.state;
     const { hfshowing } = this.state;
     const { hhshowing } = this.state;
+    const { chart_data } = this.state;
+
+    const data = [
+      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100}]
+    const yoyo = chart_data[0];
+    console.log(yoyo);
+    const tickFormatter = (tick) => moment(tick).format('MMMM YYYY');
+    const dateFormatter = (dataKey) => moment(dataKey).format('M/DD/YY');
     return (
       <Fragment>
         <Row>
           <Colxx xxs="12">
             <h1>{strategy_name}</h1>
             <a>   Live Strategy</a>
-            <Separator className="mb-5" />
+            <Separator className="mb-3" />
           </Colxx>
         </Row>
 
         <Row>
           <Colxx xxs="12" sm="6" md="8">
             <Card className="h-100">
+              <Row>
+                  <Colxx xxs="2" sm="2" md="2">
+                    
+                  </Colxx>
+                  <Colxx xxs="8" sm="8" md="8">
+                    <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                      <h2 style={{marginTop: '20px'}}>Returns vs S&P 500</h2>
+                    </CardTitle>
+                  </Colxx>
+                  <Colxx xxs="2" sm="2" md="2">
+
+                  </Colxx>
+                </Row>
+              <Row>
+                <Colxx xxs="12" sm="12" md="12">
+                  <AreaChart width={520} height={346} data={chart_data}
+                        margin={{top: 0, right: 0, left: 0, bottom: 0}}>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} name={dateFormatter} />
+                    <YAxis/>
+                    <Tooltip/>
+                    <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#8884d8' fill='#8884d8' />
+                    <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#82ca9d' fill='#82ca9d' />
+                  </AreaChart>
+                </Colxx>
+              </Row>
               <CardBody>
+                
                 <Row>
                   <Colxx xxs="4" sm="4" md="4">
                     
@@ -170,23 +231,23 @@ class StrategyDashboard extends Component {
                     </CardTitle>
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4">
-                    
+
                   </Colxx>
                 </Row>
                 <Row>
-                  <Colxx xxs="4" sm="12" md="4" className="mb-4" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                  <Colxx xxs="4" sm="12" md="4" className="mb-3" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
                     <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
                   </Colxx>
-                  <Colxx xxs="4" sm="12" md="4" className="mb-4" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                  <Colxx xxs="4" sm="12" md="4" className="mb-3" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
                     <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
                   </Colxx>
-                  <Colxx xxs="4" sm="12" md="4" className="mb-4" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                  <Colxx xxs="4" sm="12" md="4" className="mb-3" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
                     <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
                   </Colxx>
                 </Row>
                 { hrshowing 
                     ? <div>
-                      <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                      <CardTitle  className="mb-2" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
                         <IntlMessages id={"Returns"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
                       </CardTitle>
                         <ReactTable
@@ -298,6 +359,16 @@ class StrategyDashboard extends Component {
                     })}
                   </tbody>
                 </Table>
+              </CardBody>
+            </Card>
+          </Colxx>
+        </Row>
+
+        <Row>
+          <Colxx xxs="12" sm="12" md="12">
+            <Card className="h-100">
+              <CardBody>
+
               </CardBody>
             </Card>
           </Colxx>
