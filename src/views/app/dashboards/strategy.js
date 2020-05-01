@@ -167,19 +167,7 @@ class StrategyDashboard extends Component {
     const { hfshowing } = this.state;
     const { hhshowing } = this.state;
     const { chart_data } = this.state;
-
-    const data = [
-      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100}]
-    const yoyo = chart_data[0];
-    console.log(yoyo);
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
-    const dateFormatter = (date) => moment(date).format('M/DD/YY');
     return (
       <Fragment>
         <Row>
@@ -211,9 +199,9 @@ class StrategyDashboard extends Component {
                   <ResponsiveContainer width="96%" aspect={2}>
                     <AreaChart data={chart_data} margin={{top: 0, right: 0, left: -9, bottom: 0}} padding={{top: 0, right: 10, left: 0, bottom: 0}}>
                       <CartesianGrid strokeDasharray="3 3"/>
-                      <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} name={dateFormatter} />
+                      <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} />
                       <YAxis/>
-                      <Tooltip/>
+                      <Tooltip labelFormatter={t => new Date(t).toLocaleDateString()} />
                       <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#8884d8' fill='#8884d8' />
                       <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#82ca9d' fill='#82ca9d' />
                     </AreaChart>
