@@ -187,7 +187,7 @@ class StrategyDashboard extends Component {
                   </Colxx>
                   <Colxx xxs="8" sm="8" md="8">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h2 style={{marginTop: '20px'}}>Returns vs S&P 500</h2>
+                      <h2 style={{marginTop: '20px'}}>{strategy_name} Returns vs S&P 500</h2>
                     </CardTitle>
                   </Colxx>
                   <Colxx xxs="2" sm="2" md="2">
