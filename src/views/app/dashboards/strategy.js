@@ -179,7 +179,7 @@ class StrategyDashboard extends Component {
     const yoyo = chart_data[0];
     console.log(yoyo);
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
-    const dateFormatter = (dataKey) => moment(dataKey).format('M/DD/YY');
+    const dateFormatter = (date) => moment(date).format('M/DD/YY');
     return (
       <Fragment>
         <Row>
@@ -207,9 +207,9 @@ class StrategyDashboard extends Component {
                   </Colxx>
                 </Row>
               <Row>
-                <Colxx xxs="12" sm="12" md="12">
-                  <ResponsiveContainer width="99%" aspect={2}>
-                    <AreaChart width={500} height={400} data={chart_data} margin={{top: 0, right: 20, left: 0, bottom: 0}}>
+                <Colxx xxs="12" sm="12" md="12" padding="0">
+                  <ResponsiveContainer width="96%" aspect={2}>
+                    <AreaChart data={chart_data} margin={{top: 0, right: 0, left: -9, bottom: 0}} padding={{top: 0, right: 10, left: 0, bottom: 0}}>
                       <CartesianGrid strokeDasharray="3 3"/>
                       <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} name={dateFormatter} />
                       <YAxis/>
