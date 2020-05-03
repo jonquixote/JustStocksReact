@@ -29,14 +29,65 @@ import { MobileMenuIcon, MenuIcon } from "../../components/svg";
 import TopnavEasyAccess from "./Topnav.EasyAccess";
 import TopnavNotifications from "./Topnav.Notifications";
 
+import Autosuggest from 'react-autosuggest';
+import axios from 'axios';
+
+let allSymbols;
+
 class TopNav extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isInFullScreen: false,
-      searchKeyword: ""
+      searchKeyword: "",
+      value: '',
+      suggestions: []
     };
+    this.results = React.createRef();
+    this.searchBar = React.createRef();
+    this.searchBarEl = React.createRef();
+    this.searchStocks = this.searchStocks.bind(this);
+  }
+
+  searchStocks(e) {
+    let results = this.results.current;
+    results.innerHTML = "";
+    let b = 0;
+    let filter = this.searchBarEl.current.value.toUpperCase();
+    if (e.key === "Enter") {
+      window.location = `/stocks/${filter}`;
+    }
+    if (filter.length === 0) {
+      results.innerHTML = "";
+      results.style.display = "none";
+    } else {
+      for (let i = 0; i < allSymbols.length; i++) {
+        let splitSymbol = allSymbols[parseInt(i)].symbol.split("");
+        let splitFilter = filter.split("");
+        for (let a = 0; a < splitFilter.length; a++) {
+          if (
+            allSymbols[parseInt(i)].symbol.indexOf(filter) > -1 &&
+            splitSymbol[parseInt(a)] === splitFilter[parseInt(a)]
+          ) {
+            if (a === 0) {
+              results.style.display = "flex";
+              let el = document.createElement("li");
+              el.innerHTML = `<a href="/stocks/${
+                allSymbols[parseInt(i)].symbol
+              }"><h4>${allSymbols[parseInt(i)].symbol}</h4><h6>${
+                allSymbols[parseInt(i)].name
+              }</h6></a>`;
+              results.appendChild(el);
+              b++;
+            }
+          }
+        }
+        if (b === 10) {
+          break;
+        }
+      }
+    }
   }
 
   handleChangeLocale = locale => {
@@ -184,6 +235,20 @@ class TopNav extends Component {
     this.props.clickOnMobileMenu(containerClassnames);
   };
 
+  componentDidMount() {
+    let results = this.results.current;
+    axios
+      .get(
+        `https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_f5dfcb0819ad4b7fafd3425e89fd2f63`,
+      )
+      .then(function (results) {
+         console.log(results.data)
+         allSymbols = results.data.map(val => {
+            return val;
+          });
+       })
+    };
+
   render() {
     const { containerClassnames, menuClickCount, locale } = this.props;
     const { messages } = this.props.intl;
@@ -206,15 +271,40 @@ class TopNav extends Component {
           <MobileMenuIcon />
         </NavLink>
 
-        <div className="search" data-search-path="/app/pages/search">
-          <Input
-            name="searchKeyword"
-            id="searchKeyword"
-            placeholder={messages["menu.search"]}
-            value={this.state.searchKeyword}
-            onChange={e => this.handleSearchInputChange(e)}
-            onKeyPress={e => this.handleSearchInputKeyPress(e)}
-          />
+         <div
+            className="topbar__searchbar, search"
+            ref={this.searchBar}
+            id="topbar__searchbar"
+            data-search-path="/app/pages/search">
+          <input
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              type="text"
+              id="searchBar"
+              ref={this.searchBarEl}
+              onKeyUp={this.searchStocks}
+              placeholder="Search by symbol"
+              onFocus={() => {
+                if (this.results.current.firstChild) {
+                  this.results.current.style.display = "flex";
+                }
+                this.searchBar.current.style.boxShadow =
+                  "0px 0px 30px 0px rgba(0,0,0,0.10)";
+                this.results.current.style.boxShadow =
+                  "0px 30px 20px 0px rgba(0,0,0,0.10)";
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  if (this.results.current) {
+                    this.results.current.style.display = "none";
+                  }
+                }, 300);
+                this.searchBar.current.style.boxShadow = "none";
+              }}
+              autoComplete="off"
+            />
+          <ul className="topbar__results" id="results" ref={this.results} />
           <span
             className="search-icon"
             onClick={e => this.handleSearchIconClick(e)}
