@@ -45,7 +45,7 @@ class Stock extends Component {
     const { symbol } = this.props.match.params
     const { quote } = this.state;
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
-    const changePercentFormatter = this.state.quote.changePercent*100;
+    const changePercentFormatter = +(Math.round((this.state.quote.changePercent*100) + "e+2")  + "e-2");
     return (
       <Fragment>
         <Row>
@@ -74,19 +74,19 @@ class Stock extends Component {
 	        <Colxx xxs="12" sm="6" md="4">
 	            <Card className="h-100">
 	              <Row>
-		              <Colxx xxs="12" sm="12" md="12">
+		              <Colxx xxs="3" sm="3" md="3">
 		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-		                  <h1 style={{marginTop: '20px'}}>${quote.latestPrice}</h1>
-		                </CardTitle>
-		              </Colxx>
-		              <Colxx xxs="6" sm="6" md="6">
-		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-		              		<h2>{quote.change}</h2>
+		              		<h3 style={{marginTop: '30px', marginLeft: '30px'}}>{quote.change}</h3>
 		              	</CardTitle>
 		              </Colxx>
 		              <Colxx xxs="6" sm="6" md="6">
 		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-		              		<h2>({changePercentFormatter}%)</h2>
+		                  <h1 style={{marginTop: '20px'}}>${quote.latestPrice}</h1>
+		                </CardTitle>
+		              </Colxx>
+		              <Colxx xxs="3" sm="3" md="3">
+		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+		              		<h3 style={{marginTop: '30px', marginRight: '35px'}}>({changePercentFormatter}%)</h3>
 		              	</CardTitle>
 		              </Colxx>
 		          </Row>
