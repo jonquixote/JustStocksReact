@@ -156,7 +156,6 @@ class StrategyDashboard extends Component {
   }
 
   render() {
-    moment.locale('en');
     console.log(this.state.holdings_returns.data)
     const {messages} = this.props.intl;
     const { strategy_name } = this.props.match.params

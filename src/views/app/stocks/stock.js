@@ -42,7 +42,6 @@ class Stock extends Component {
   }
 
   render() {
-    moment.locale('en');
     const { symbol } = this.props.match.params
     const { quote } = this.state;
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
