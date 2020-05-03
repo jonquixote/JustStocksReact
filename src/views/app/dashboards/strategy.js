@@ -54,7 +54,7 @@ class StrategyDashboard extends Component {
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_historicalss/' + strategy_name)
+    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_historicals/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_historicals: response.data})
