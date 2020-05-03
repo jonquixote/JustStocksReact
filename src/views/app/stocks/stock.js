@@ -45,16 +45,54 @@ class Stock extends Component {
     const { symbol } = this.props.match.params
     const { quote } = this.state;
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
+    const changePercentFormatter = this.state.quote.changePercent*100;
     return (
       <Fragment>
         <Row>
           <Colxx xxs="12">
-            <h1>{quote.companyName}</h1>
-            <a>   ({symbol})</a>
+            <h1>{quote.companyName} ({symbol})</h1>
+            <a>   {quote.primaryExchange}</a>
             <Separator className="mb-3" />
           </Colxx>
         </Row>
+        <Row>
+          <Colxx xxs="12" sm="6" md="8">
+            <Card className="h-100">
+              <Row>
+	              <Colxx xxs="2" sm="2" md="2">
+	                
+	              </Colxx>
+	              <Colxx xxs="8" sm="8" md="8">
+	                
+	              </Colxx>
+	              <Colxx xxs="2" sm="2" md="2">
 
+	              </Colxx>
+	            </Row>
+	          </Card>
+	        </Colxx>
+	        <Colxx xxs="12" sm="6" md="4">
+	            <Card className="h-100">
+	              <Row>
+		              <Colxx xxs="12" sm="12" md="12">
+		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+		                  <h1 style={{marginTop: '20px'}}>${quote.latestPrice}</h1>
+		                </CardTitle>
+		              </Colxx>
+		              <Colxx xxs="6" sm="6" md="6">
+		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+		              		<h2>{quote.change}</h2>
+		              	</CardTitle>
+		              </Colxx>
+		              <Colxx xxs="6" sm="6" md="6">
+		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+		              		<h2>({changePercentFormatter}%)</h2>
+		              	</CardTitle>
+		              </Colxx>
+		          </Row>
+		        </Card>
+		    </Colxx>
+	      </Row>
         
 
       </Fragment>
