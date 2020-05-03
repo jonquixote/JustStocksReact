@@ -11,6 +11,7 @@ import moment from "moment";
 class Stock extends Component {
   state = {
     symbol: this.props.match.params,
+    chart_data: [],
     quote: []
   }
   componentDidMount() {
@@ -24,7 +25,15 @@ class Stock extends Component {
        self.setState({quote: response.data})
      })
     .catch(error => this.setState({ error }));
+  axios
+    .get('https://cloud.iexapis.com/stable/stock/' + symbol + '/chart/ytd?token=pk_f5dfcb0819ad4b7fafd3425e89fd2f63')
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({chart_data: response.data})
+     })
+    .catch(error => this.setState({ error }));
   };
+
 
   componentDidUpdate(prevProps) {
     var self = this
@@ -38,12 +47,20 @@ class Stock extends Component {
            self.setState({quote: response.data})
          })
         .catch(error => this.setState({ error }));
+      axios
+        .get('https://cloud.iexapis.com/stable/stock/' + symbol + '/chart/ytd?token=pk_f5dfcb0819ad4b7fafd3425e89fd2f63')
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({chart_data: response.data})
+         })
+        .catch(error => this.setState({ error }));
     }
   }
 
   render() {
     const { symbol } = this.props.match.params
     const { quote } = this.state;
+    const { chart_data } = this.state;
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
     const changePercentFormatter = +(Math.round((this.state.quote.changePercent*100) + "e+2")  + "e-2");
     return (
@@ -62,11 +79,26 @@ class Stock extends Component {
 	              <Colxx xxs="2" sm="2" md="2">
 	                
 	              </Colxx>
-	              <Colxx xxs="8" sm="8" md="8">
-	                
+	              <Colxx xxs="8" sm="8" md="8" style={{marginTop: '15px'}}>
+	                <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+	              		<h2 style={{marginTop: '0px', marginLeft: '30px'}}>{quote.companyName} Returns this Year</h2>
+	              	</CardTitle>
 	              </Colxx>
 	              <Colxx xxs="2" sm="2" md="2">
 
+	              </Colxx>
+	            </Row>
+	            <Row>
+	              <Colxx xxs="12" sm="12" md="12">
+                  	<ResponsiveContainer width="96%" aspect={2}>
+		              	<AreaChart data={chart_data} margin={{top: 0, right: 0, left: -9, bottom: 0}} padding={{top: 0, right: 10, left: 0, bottom: 0}}>
+	                      <CartesianGrid strokeDasharray="3 3"/>
+	                      <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} />
+	                      <YAxis/>
+	                      <Tooltip labelFormatter={t => new Date(t).toLocaleDateString()} />
+	                      <Area type='monotone' dataKey='close' name={symbol} stackId="1" label='symbol' stroke='#8884d8' fill='#8884d8' />
+	                    </AreaChart>
+                  	</ResponsiveContainer>
 	              </Colxx>
 	            </Row>
 	          </Card>
