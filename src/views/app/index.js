@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import AppLayout from "../../layout/AppLayout";
 import dashboards from "./dashboards";
+import stocks from "./stocks";
 import pages from "./pages";
 import applications from "./applications";
 import ui from "./ui";
@@ -19,6 +20,7 @@ class App extends Component {
         <Switch>
           <Redirect exact from={`${match.url}/`} to={`${match.url}/dashboards`} />
           <Route path={`${match.url}/dashboards`} component={dashboards} />
+          <Route path={`${match.url}/stocks`} component={stocks} />
           <Route path={`${match.url}/applications`} component={applications} />
           <Route path={`${match.url}/pages`} component={pages} />
           <Route path={`${match.url}/ui`} component={ui} />
