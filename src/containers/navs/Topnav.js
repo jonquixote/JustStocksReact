@@ -29,7 +29,6 @@ import { MobileMenuIcon, MenuIcon } from "../../components/svg";
 import TopnavEasyAccess from "./Topnav.EasyAccess";
 import TopnavNotifications from "./Topnav.Notifications";
 
-import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 
 let allSymbols;
@@ -44,9 +43,12 @@ class TopNav extends Component {
       value: '',
       suggestions: []
     };
+
+
     this.results = React.createRef();
     this.searchBar = React.createRef();
     this.searchBarEl = React.createRef();
+    // this.alphaSearch = this.alphaSearch.bind(this);
     this.searchStocks = this.searchStocks.bind(this);
   }
 
@@ -61,7 +63,7 @@ class TopNav extends Component {
     if (filter.length === 0) {
       results.innerHTML = "";
       results.style.display = "none";
-    } else {
+    } else if (filter.length > 0 && allSymbols !== undefined) {
       for (let i = 0; i < allSymbols.length; i++) {
         let splitSymbol = allSymbols[parseInt(i)].symbol.split("");
         let splitFilter = filter.split("");
@@ -90,9 +92,62 @@ class TopNav extends Component {
     }
   }
 
+  // alphaSearch(e) {
+  //   let results = this.results.current;
+  //   let filter = this.searchBarEl.current.value;
+  //   axios
+  //     .get(
+  //       `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=` + filter + '&apikey=WYFQ6YWL6NCV4W6Y'
+  //     )
+  //     .then(function (results) {
+  //        console.log(results.data.bestMatches)
+  //        if (results !== undefined && results.length > 0) {
+  //        allSymbols = results.data.bestMatches.map(val => {
+  //           return val;
+  //         });
+  //       } 
+  //      })
+  //   results.innerHTML = "";
+  //   let b = 0;
+  //   if (e.key === "Enter") {
+  //     window.location = `/stocks/${filter}`;
+  //   }
+  //   if (filter.length === 0) {
+  //     results.innerHTML = "";
+  //     results.style.display = "none";
+  //   } else if (filter !== undefined && filter.length > 0 && allSymbols !== undefined) {
+  //     for (let i = 0; i < allSymbols.length; i++) {
+  //       let splitSymbol = allSymbols[parseInt(i)].symbol.split("");
+  //       let splitFilter = filter.split("");
+  //       for (let a = 0; a < splitFilter.length; a++) {
+  //         if (
+  //           allSymbols[parseInt(i)].symbol.indexOf(filter) > -1 &&
+  //           splitSymbol[parseInt(a)] === splitFilter[parseInt(a)]
+  //         ) {
+  //           if (a === 0) {
+  //             results.style.display = "flex";
+  //             let el = document.createElement("li");
+  //             el.innerHTML = `<a href="../../app/stocks/${
+  //               allSymbols[parseInt(i)].symbol
+  //             }"><h4>${allSymbols[parseInt(i)].symbol}</h4><h6>${
+  //               allSymbols[parseInt(i)].name
+  //             }</h6></a>`;
+  //             results.appendChild(el);
+  //             b++;
+  //           }
+  //         }
+  //       }
+  //       if (b === 10) {
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
+
   handleChangeLocale = locale => {
     this.props.changeLocale(locale);
   };
+
   isInFullScreen = () => {
     return (
       (document.fullscreenElement && document.fullscreenElement !== null) ||
@@ -103,6 +158,7 @@ class TopNav extends Component {
       (document.msFullscreenElement && document.msFullscreenElement !== null)
     );
   };
+
   handleSearchIconClick = e => {
     if (window.innerWidth < menuHiddenBreakpoint) {
       let elem = e.target;
@@ -128,6 +184,7 @@ class TopNav extends Component {
       this.search();
     }
   };
+
   addEventsSearch = () => {
     document.addEventListener("click", this.handleDocumentClickSearch, true);
   };
@@ -164,6 +221,7 @@ class TopNav extends Component {
       });
     }
   };
+
   handleSearchInputChange = e => {
     this.setState({
       searchKeyword: e.target.value
@@ -239,10 +297,10 @@ class TopNav extends Component {
     let results = this.results.current;
     axios
       .get(
-        `https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_f5dfcb0819ad4b7fafd3425e89fd2f63`,
+        `http://signaltv.org/symbols_data.json`,
       )
       .then(function (results) {
-         console.log(results.data)
+        console.log(results.data)
          allSymbols = results.data.map(val => {
             return val;
           });
