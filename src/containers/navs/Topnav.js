@@ -296,9 +296,7 @@ class TopNav extends Component {
   componentDidMount() {
     let results = this.results.current;
     axios
-      .get(
-        `https://signaltv.org/symbols_data.json`,
-      )
+      .get('https://signaltv.org/symbols_data.json', { crossdomain: true })
       .then(function (results) {
         console.log(results.data)
          allSymbols = results.data.map(val => {
