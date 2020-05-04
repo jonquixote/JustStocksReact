@@ -297,7 +297,7 @@ class TopNav extends Component {
     let results = this.results.current;
     axios
       .get(
-        `http://signaltv.org/symbols_data.json`,
+        `https://signaltv.org/symbols_data.json`,
       )
       .then(function (results) {
         console.log(results.data)
