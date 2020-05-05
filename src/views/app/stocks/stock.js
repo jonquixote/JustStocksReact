@@ -43,7 +43,7 @@ class Stock extends Component {
   axios
     .get('https://cloud.iexapis.com/stable/stock/' + symbol + '/quote?token=pk_4508d72f8f46461fa02da35e47be9656')
     .then(function (response) {
-       console.log(response.data)
+       // console.log(response.data)
        self.setState({quote: response.data})
      })
     .catch(error => this.setState({ error }));
