@@ -6,6 +6,12 @@
   "engines": {
     "node": ">=10.15.3"
   },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
@@ -19,6 +25,7 @@
     "babel-loader": "^8.1.0",
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
+    "cors": "^2.8.5",
     "d3": "^5.15.1",
     "d3-dsv": "^1.2.0",
     "d3-format": "^1.4.4",
@@ -26,14 +33,18 @@
     "d3-time-format": "^2.2.3",
     "dropzone": "^5.7.0",
     "express": "^4.17.1",
+    "fetch": "^1.1.0",
     "firebase": "^7.14.2",
     "formik": "^1.5.8",
     "grpc": "^1.24.2",
+    "http-proxy-middleware": "^1.0.3",
     "install": "^0.13.0",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.28",
     "mousetrap": "^1.6.5",
     "node-gyp": "^6.1.0",
     "node-pre-gyp": "^0.14.0",
+    "nodemon": "^2.0.3",
     "rc-slider": "^8.7.1",
     "rc-switch": "^1.9.0",
     "react": "^16.13.1",
@@ -68,13 +79,10 @@
     "redux-saga": "^1.0.2",
     "sortablejs": "^1.6.1",
     "typescript": "^3.8.3",
+    "unirest": "^0.6.0",
+    "webpack-node-externals": "^1.7.2",
+    "yahoo-finance": "^0.3.6",
     "yup": "^0.27.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
