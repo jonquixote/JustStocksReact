@@ -108,8 +108,9 @@ class Stock extends Component {
     // const formattedChartData = JSON.stringify(chart_data)
     // const tickFormatter = (tick) => moment(tick, 'MMMM DD, YYYY').format('ll');
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
+    const sTickFormatter = (s) => +(Math.round((s) + "e+2") + "e-2");
     console.log(tickFormatter)
-    // const changePercentFormatter = +(Math.round((this.state.quote.changePercent*100) + "e+2")  + "e-2");
+    const changePercentFormatter = +(Math.round((this.state.quote.changePercent*100) + "e+2")  + "e-2");
     
     // console.log(Object.keys(chart_data).map(date => new Date(date).toLocaleDateString()))
     console.log(Object.values(chart_data))
@@ -149,7 +150,7 @@ class Stock extends Component {
 	                      <YAxis/>
 	                      <Tooltip labelFormatter={t => new Date(t).toLocaleDateString()} />
 	                      {console.log(Tooltip.labelFormatter)}
-	                      <Area type='monotone' dataKey='close' name={symbol} stackId="1" label='symbol' stroke='#8884d8' fill='#8884d8' />
+	                      <Area type='monotone' dataKey='close' name={symbol} tickFormatter={sTickFormatter} stackId="1" label='symbol' stroke='#8884d8' fill='#8884d8' />
 	                      {this.state.chart_data.length > 0 && <Brush />}
 	                    </AreaChart>
                   	</ResponsiveContainer>
