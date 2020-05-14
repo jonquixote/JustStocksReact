@@ -52,5 +52,18 @@ app.get('/stock_quote/:ticker', (req, res) => {
   })
 })
 
+app.get('/wsb/:ticker', (req, res) => {
+  console.log('fetching wsb data for:', req.params.ticker)
+  return res.status(200).send({})
+})
+
+app.get('/wsbFeed', async (_, res) => {
+  console.log('fetching wsb data')
+  let resp = await wsb.wsbTopPostComments()
+  console.log('wsb data fetch successful')
+  return res.status(200).send(resp)
+})
+
 const port = process.env.PORT || 5000
-app.listen(port, () => console.log(`Server Running on Port ${port}`));
+console.log(`listening on port ${port}`)
+app.listen(port, "0.0.0.0")

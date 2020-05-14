@@ -1,0 +1,1 @@
+export const JUST_STOCKS_API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://juststocks.com'
