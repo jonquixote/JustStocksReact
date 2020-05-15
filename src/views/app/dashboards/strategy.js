@@ -160,33 +160,35 @@ class StrategyDashboard extends Component {
     const {messages} = this.props.intl;
     const { strategy_name } = this.props.match.params
     const stats_perf = this.state.stats_performances.slice(35, 41)
-    const info_data = this.state.strategy_summaries.slice(0, 11)
+    const info_data = this.state.strategy_summaries.slice(3, 11)
     const strategy_stats = this.state.strategy_summary_stats.slice(0, 11)
     const { hrshowing } = this.state;
     const { hfshowing } = this.state;
     const { hhshowing } = this.state;
     const { chart_data } = this.state;
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
+
+
     return (
       <Fragment>
         <Row>
           <Colxx xxs="12">
-            <h1>{strategy_name}</h1>
+            <h1 className='orbitron'>{strategy_name}</h1>
             <a>   Live Strategy</a>
             <Separator className="mb-3" />
           </Colxx>
         </Row>
 
         <Row>
-          <Colxx xxs="12" sm="6" md="8">
+          <Colxx xxs="12" sm="6" md="8" style={{paddingRight:'10px', paddingLeft:'10px'}}>
             <Card className="h-100">
               <Row>
                   <Colxx xxs="2" sm="2" md="2">
                     
                   </Colxx>
                   <Colxx xxs="8" sm="8" md="8">
-                    <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h2 style={{marginTop: '20px'}}>{strategy_name} Returns vs S&P 500</h2>
+                    <CardTitle className='source-sans-pro' style={{fontStyle:'italic', isplay: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                      <h2 style={{marginTop: '20px'}}>{strategy_name} vs S&P 500</h2>
                     </CardTitle>
                   </Colxx>
                   <Colxx xxs="2" sm="2" md="2">
@@ -201,21 +203,21 @@ class StrategyDashboard extends Component {
                       <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} />
                       <YAxis/>
                       <Tooltip labelFormatter={t => new Date(t).toLocaleDateString()} />
-                      <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#8884d8' fill='#8884d8' />
-                      <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#82ca9d' fill='#82ca9d' />
+                      <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#28a745' fill='#007bff' />
+                      <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#007bff' fill='#28a745' />
                     </AreaChart>
                   </ResponsiveContainer>
                 </Colxx>
               </Row>
-              <CardBody>
-                
+
+              <CardBody style={{paddingTop:'0.5rem', paddingLeft:'1rem', paddingRight:'1rem', paddingBottom:'0.5rem'}}>
                 <Row>
                   <Colxx xxs="4" sm="4" md="4">
                     
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h1>Holdings</h1>
+                      <h1 style={{fontFamily: "'Roboto Condensed', sans-serif"}}>Holdings</h1>
                     </CardTitle>
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4">
@@ -284,7 +286,7 @@ class StrategyDashboard extends Component {
                     </div>
                   : null
               }
-                <CardTitle>
+                <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
                   <IntlMessages id={"Performance Statistics"} />
                 </CardTitle>
                 <Table>
@@ -312,10 +314,10 @@ class StrategyDashboard extends Component {
             </Card>
           </Colxx>
 
-          <Colxx xxs="12" sm="6" md="4">
+          <Colxx xxs="12" sm="6" md="4" style={{paddingRight:'10px', paddingLeft:'10px'}}>
             <Card className="mb-4">
-              <CardBody>
-                <CardTitle>
+              <CardBody style={{paddingTop:'1rem', paddingLeft:'0.5rem', paddingBottom:'0.5rem', paddingRight:'0.5rem'}}>
+                <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
                   <IntlMessages id="General Info" />
                 </CardTitle>
                 <Table>
@@ -323,15 +325,15 @@ class StrategyDashboard extends Component {
                     {info_data.reverse().map(( listValue, index ) => {
                       
                       return (
-                        <tr key={index}>
+                        <tr key={index} style={{fontSize:'10px'}}>
                           <td>{listValue.info_name}</td>
-                          <td>{listValue.info_value}</td>
+                          <td style={{textAlign:'center', color:'gray'}}>{listValue.info_value}</td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </Table>
-                 <CardTitle>
+                 <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
                   <IntlMessages id="Quick Stats" />
                 </CardTitle>
                 <Table>
@@ -339,24 +341,14 @@ class StrategyDashboard extends Component {
                     {strategy_stats.reverse().map(( listValue, index ) => {
                       
                       return (
-                        <tr key={index}>
+                        <tr key={index} style={{fontSize:'10px'}}>
                           <td>{listValue.stats_name}</td>
-                          <td>{listValue.stats_value}</td>
+                          <td style={{textAlign:'center', color:'gray'}}>{listValue.stats_value}</td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </Table>
-              </CardBody>
-            </Card>
-          </Colxx>
-        </Row>
-
-        <Row>
-          <Colxx xxs="12" sm="12" md="12">
-            <Card className="h-100">
-              <CardBody>
-
               </CardBody>
             </Card>
           </Colxx>

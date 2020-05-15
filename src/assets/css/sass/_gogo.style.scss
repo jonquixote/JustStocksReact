@@ -120,9 +120,9 @@ html {
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 0.8rem;
-  font-weight: 400;
+  font-weight: 200;
   color: $primary-color;
   background: $background-color;
 
@@ -213,6 +213,18 @@ body {
     font-weight: bold;
     font-size: 16px;
     width: 100%;
+}
+
+.orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.source-sans-pro m{ 
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.roboto-condensed {
+  font-family: 'Roboto Condensed', sans-serif;
 }
 /* End of Custom */
 
@@ -315,7 +327,7 @@ hr {
 
 .scrollbar-container {
   margin-right: -15px;
-  padding-right: 15px;
+  padding-right: 5px;
   position: relative;
 }
 
@@ -385,7 +397,7 @@ hr {
 }
 
 .list-item-heading {
-  font-size: 1rem;
+  font-size: .7rem;
 }
 
 .truncate {
@@ -445,8 +457,9 @@ a {
 }
 
 p {
-  font-size: 0.85rem;
-  line-height: 1.3rem;
+  font-size: 0.7rem;
+  line-height: 0.7rem;
+  margin-bottom: 2px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -2575,8 +2588,8 @@ button {
   }
 
   @include respond-below(sm) {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
   }
 
   input {
@@ -3349,7 +3362,7 @@ main {
 
 .ReactTable .rt-th,
 .ReactTable .rt-td {
-  padding-top: 20px;
+  padding-top: 15px;
   padding-bottom: 10px;
 }
 
@@ -6562,6 +6575,7 @@ input:-webkit-autofill {
 .table th,
 .table td {
   border-color: $separator-color-light !important;
+  padding: .25rem;
 }
 
 .table .thead-light th {
