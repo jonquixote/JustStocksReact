@@ -167,45 +167,41 @@ class Stock extends Component {
 
 
               <Row>
-                <Colxx xxs="12" sm="12" md="12">
-                  <Card className="mb-4">
-                    <CardBody>
-                      <Table borderless>
-                        <tbody style={{fontSize:'10px'}}>
-                          <tr>
-                            <td>Open</td>
-                            <td style={{color:'gray'}}>{+(Math.round((quote.regularMarketOpen) + "e+2") + "e-2")}</td>
-                            <td>Div yield</td>
-                            <td style={{color:'gray'}}>{summaryDetail.dividendYield}</td>
-                          </tr>
-                          <tr>
-                            <td>High</td>
-                            <td style={{color:'gray'}}>{quote.regularMarketDayHigh}</td>
-                            <td>Prev Close</td>
-                            <td style={{color:'gray'}}>{summaryDetail.previousClose}</td>
-                          </tr>
-                          <tr>
-                            <td>Low</td>
-                            <td style={{color:'gray'}}>{quote.regularMarketDayLow}</td>
-                            <td>52-wk high</td>
-                            <td style={{color:'gray'}}>{summaryDetail.fiftyTwoWeekHigh}</td>
-                          </tr>
-                          <tr>
-                            <td>Mkt cap</td>
-                            <td style={{color:'gray'}}>{parseInt(quote.marketCap).toLocaleString()}</td>
-                            <td>52-wk low</td>
-                            <td style={{color:'gray'}}>{summaryDetail.fiftyTwoWeekLow}</td>
-                          </tr>
-                          <tr>
-                            <td>P/E ratio</td>
-                            <td style={{color:'gray'}}>{financialData.currentRatio}</td>
-                            <td>Volume</td>
-                            <td style={{color:'gray'}}>{parseInt(quote.regularMarketVolume).toLocaleString()}</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </CardBody>
-                  </Card>
+                <Colxx xxs="12" sm="12" md="12" style={{padding:'2rem'}}>
+                  <Table borderless>
+                    <tbody style={{fontSize:'12px'}}>
+                      <tr>
+                        <td>Open</td>
+                        <td style={{color:'gray'}}>{+(Math.round((quote.regularMarketOpen) + "e+2") + "e-2")}</td>
+                        <td>Div yield</td>
+                        <td style={{color:'gray'}}>{summaryDetail.dividendYield}</td>
+                      </tr>
+                      <tr>
+                        <td>High</td>
+                        <td style={{color:'gray'}}>{quote.regularMarketDayHigh}</td>
+                        <td>Prev Close</td>
+                        <td style={{color:'gray'}}>{summaryDetail.previousClose}</td>
+                      </tr>
+                      <tr>
+                        <td>Low</td>
+                        <td style={{color:'gray'}}>{quote.regularMarketDayLow}</td>
+                        <td>52-wk high</td>
+                        <td style={{color:'gray'}}>{summaryDetail.fiftyTwoWeekHigh}</td>
+                      </tr>
+                      <tr>
+                        <td>Mkt cap</td>
+                        <td style={{color:'gray'}}>{parseInt(quote.marketCap).toLocaleString()}</td>
+                        <td>52-wk low</td>
+                        <td style={{color:'gray'}}>{summaryDetail.fiftyTwoWeekLow}</td>
+                      </tr>
+                      <tr>
+                        <td>P/E ratio</td>
+                        <td style={{color:'gray'}}>{financialData.currentRatio}</td>
+                        <td>Volume</td>
+                        <td style={{color:'gray'}}>{parseInt(quote.regularMarketVolume).toLocaleString()}</td>
+                      </tr>
+                    </tbody>
+                  </Table>
                 </Colxx>
               </Row>
 	          </Card>
@@ -246,9 +242,9 @@ class Stock extends Component {
                       
                       return (
                         <tr key={index} style={{padding:'0,10px,0,10px', color:'gray'}}>
-                          <td style={{fontSize:'8px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
-                          <td style={{fontSize:'8px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
-                          <td style={{fontSize:'8px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
+                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
+                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
+                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
                         </tr>
                       );
                     })}
@@ -286,14 +282,28 @@ class Stock extends Component {
                       
                       return (
                         <tr key={index} style={{padding:'0,10px,0,10px', color:'gray'}}>
-                          <td style={{fontSize:'8px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
-                          <td style={{fontSize:'8px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
-                          <td style={{fontSize:'8px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
+                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
+                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
+                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </Table>
+              </Row>
+              <Row>
+                <Colxx xxs="12" sm="12" md="12">
+                  <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                    <h1 style={{fontSize:'16px', marginTop: '15px', marginBottom:'0', padding:'0'}}>About {quote.shortName}</h1>
+                  </CardTitle>
+                  <Card className="mb-4">
+                    <CardBody style={{paddingLeft:'1rem', paddingRight:'1rem', paddingTop:'0.5rem', paddingBottom:'0.5rem'}}>
+                      <a style={{fontSize:'10px'}}>{summaryProfile.longBusinessSummary}</a>
+                    </CardBody>
+                  </Card>
+                </Colxx>
+              </Row>
+              <Row>
               </Row>
 		        </Card>
 		    </Colxx>

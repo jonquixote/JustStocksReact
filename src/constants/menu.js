@@ -6,32 +6,52 @@ const data = [
     to: "/app/dashboards",
     subs: [
       {
-        label: "AM",
-        to: "/app/dashboards/AM"
+        label: "AM6",
+        to: "/app/dashboards/AM6"
       },
       {
         label: "AMC",
         to: "/app/dashboards/AMC"
       },
       {
-        label: "AM6",
-        to: "/app/dashboards/AM6"
+        label: "Barriers To Entry 2",
+        to: "/app/dashboards/Barriers-To-Entry-2"
       },
       {
-        label: "AM15",
-        to: "/app/dashboards/AM15"
+        label: "Ben Graham Earnings Yield",
+        to: "/app/dashboards/Ben-Graham-Earnings-Yield"
       },
       {
-        label: "AM30",
-        to: "/app/dashboards/AM30"
+        label: "Big Dividends",
+        to: "/app/dashboards/Big-Dividends"
       },
       {
-        label: "Biotech-T",
+        label: "Big T",
         to: "/app/dashboards/Biotech-T"
       },
       {
         label: "Buybacks",
         to: "/app/dashboards/Buybacks"
+      },
+      {
+        label: "Capital Misers",
+        to: "/app/dashboards/Capital-Misers"
+      },
+      {
+        label: "Capital Stewards",
+        to: "/app/dashboards/Capital-Stewards"
+      },
+      {
+        label: "Capital Stewards Core",
+        to: "/app/dashboards/Capital-Stewards-Core"
+      },
+      {
+        label: "Cash Flow Titans",
+        to: "/app/dashboards/Cash-Flow-Titans"
+      },
+      {
+        label: "Cash Flow Titans Core",
+        to: "/app/dashboards/Cash-Flow-Titans-Core"
       },
       {
         label: "CDV",
@@ -62,40 +82,24 @@ const data = [
         to: "/app/dashboards/CKV"
       },
       {
-        label: "CM",
-        to: "/app/dashboards/CM"
-      },
-      {
-        label: "CM15",
-        to: "/app/dashboards/CM15"
-      },
-      {
         label: "Compounders",
         to: "/app/dashboards/Compounders"
-      },
-      {
-        label: "Delevered Value 2",
-        to: "/app/dashboards/Delevered-Value-2"
-      },
-      {
-        label: "DG",
-        to: "/app/dashboards/DG"
       },
       {
         label: "Dividend Growers",
         to: "/app/dashboards/Dividend-Growers"
       },
       {
+        label: "Dividend Growers 1",
+        to: "/app/dashboards/Dividend-Growers-1"
+      },
+      {
+        label: "Delevered Value 2",
+        to: "/app/dashboards/Delevered-Value-2"
+      },
+      {
         label: "Dividend Payout",
         to: "/app/dashboards/Dividend-Payout"
-      },
-      {
-        label: "DP",
-        to: "/app/dashboards/DP"
-      },
-      {
-        label: "G2F",
-        to: "/app/dashboards/G2F"
       },
       {
         label: "G2F3",
@@ -106,10 +110,6 @@ const data = [
         to: "/app/dashboards/G2FC"
       },
       {
-        label: "HLV",
-        to: "/app/dashboards/HLV"
-      },
-      {
         label: "HLV1",
         to: "/app/dashboards/HLV1"
       },
@@ -118,7 +118,7 @@ const data = [
         to: "/app/dashboards/HLVC"
       },
       {
-        label: "Insurance",
+        label: "INSURANCE",
         to: "/app/dashboards/INSURANCE"
       },
       {
@@ -126,32 +126,12 @@ const data = [
         to: "/app/dashboards/LCM-T"
       },
       {
-        label: "MF30",
-        to: "/app/dashboards/MF30"
-      },
-      {
-        label: "MF2",
-        to: "/app/dashboards/MF2"
+        label: "Levered Value",
+        to: "/app/dashboardsLevered-Value"
       },
       {
         label: "MFI",
         to: "/app/dashboards/MFI"
-      },
-      {
-        label: "Natural Monopolies",
-        to: "/app/dashboards/Natural-Monopolies"
-      },
-      {
-        label: "NM",
-        to: "/app/dashboards/NM"
-      },
-      {
-        label: "NM2",
-        to: "/app/dashboards/NM2"
-      },
-      {
-        label: "NN",
-        to: "/app/dashboards/NN"
       },
       {
         label: "PB",
@@ -160,10 +140,6 @@ const data = [
       {
         label: "PBBPD",
         to: "/app/dashboards/PBBPD"
-      },
-      {
-        label: "PE",
-        to: "/app/dashboards/PE"
       },
       {
         label: "PEPBD",
@@ -178,16 +154,28 @@ const data = [
         to: "/app/dashboards/PSPBD"
       },
       {
-        label: "SG",
-        to: "/app/dashboards/SG"
+        label: "Quality On Sale",
+        to: "/app/dashboards/Quality-On-Sale"
+      },
+      {
+        label: "Quality On Sale Core",
+        to: "/app/dashboards/Quality-On-Sale-Core"
       },
       {
         label: "SGC",
         to: "/app/dashboards/SGC"
       },
       {
-        label: "WC",
-        to: "/app/dashboards/WC"
+        label: "Share Buybacks",
+        to: "/app/dashboards/Share-Buybacks"
+      },
+      {
+        label: "Value & Quality",
+        to: "/app/dashboards/Value-&-Quality"
+      },
+      {
+        label: "Value & Quality Core",
+        to: "/app/dashboards/Value-&-Quality-Core"
       },
       {
         icon: "simple-icon-briefcase",

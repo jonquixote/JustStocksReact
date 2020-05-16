@@ -8,11 +8,12 @@ import detailsPages from './details';
 import searchPages from './search';
 import mailingPages from './mailing';
 import invoicePages from './invoice';
+import homeDash from './home';
 
 const Pages = ({ match }) => (
     <div className="dashboard-wrapper">
         <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/data-list`} />
+            <Redirect exact from={`${match.url}/`} to={`${match.url}/home`} component={homeDash} />
             <Route path={`${match.url}/data-list`} component={dataListPages} />
             <Route path={`${match.url}/thumb-list`} component={thumbListPages} />
             <Route path={`${match.url}/image-list`} component={imageListPages} />
@@ -20,6 +21,7 @@ const Pages = ({ match }) => (
             <Route path={`${match.url}/search`} component={searchPages} />
             <Route path={`${match.url}/mailing`} component={mailingPages} />
             <Route path={`${match.url}/invoice`} component={invoicePages} />
+            <Route path={`${match.url}/home`} component={homeDash} />
             <Redirect to="/error" />
 
         </Switch>

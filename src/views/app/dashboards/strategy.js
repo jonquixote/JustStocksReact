@@ -40,7 +40,9 @@ class StrategyDashboard extends Component {
     stats_performances: [],
     strategy_summaries: [],
     strategy_summary_stats: [],
-    chart_data: []
+    chart_data: [],
+    live_strategy: [],
+    live_strategy_num: []
   }
   componentDidMount() {
   var self = this
@@ -95,6 +97,14 @@ class StrategyDashboard extends Component {
        self.setState({chart_data: response.data})
      })
     .catch(error => this.setState({ error }));
+    axios
+      .get('https://jsmoney.herokuapp.com/api/live_strategies/' + strategy_name)
+      .then(function (response) {
+         console.log(response.data)
+         self.setState({live_strategy: response.data})
+         self.setState({live_strategy_num: response.data[0]})
+       })
+      .catch(error => this.setState({ error }));
   };
 
 
@@ -152,11 +162,18 @@ class StrategyDashboard extends Component {
            self.setState({chart_data: response.data})
          })
         .catch(error => this.setState({ error }));
+      axios
+        .get('https://jsmoney.herokuapp.com/api/live_strategies/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({live_strategy: response.data})
+           self.setState({live_strategy_num: response.data[0]})
+         })
+        .catch(error => this.setState({ error }));
     }
   }
 
   render() {
-    console.log(this.state.holdings_returns.data)
     const {messages} = this.props.intl;
     const { strategy_name } = this.props.match.params
     const stats_perf = this.state.stats_performances.slice(35, 41)
@@ -166,6 +183,15 @@ class StrategyDashboard extends Component {
     const { hfshowing } = this.state;
     const { hhshowing } = this.state;
     const { chart_data } = this.state;
+    const { holdings_returns } = this.state;
+    const { holdings_fundamentals } = this.state;
+    const { holdings_historicals } = this.state;
+    const { live_strategy } = this.state;
+    const { live_strategy_num } = this.state;
+    const holdings_r = holdings_returns.slice(0, live_strategy_num.holdings);
+    const holdings_f = holdings_fundamentals.slice(0, live_strategy_num.holdings);
+    const holdings_h = holdings_historicals.slice(0, live_strategy_num.holdings);
+    console.log(live_strategy_num.holdings)
     const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
 
 
@@ -173,7 +199,7 @@ class StrategyDashboard extends Component {
       <Fragment>
         <Row>
           <Colxx xxs="12">
-            <h1 className='orbitron'>{strategy_name}</h1>
+            <h1 className='orbitron'>{strategy_name.replace(/-/g, ' ')}</h1>
             <a>   Live Strategy</a>
             <Separator className="mb-3" />
           </Colxx>
@@ -188,7 +214,7 @@ class StrategyDashboard extends Component {
                   </Colxx>
                   <Colxx xxs="8" sm="8" md="8">
                     <CardTitle className='source-sans-pro' style={{fontStyle:'italic', isplay: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h2 style={{marginTop: '20px'}}>{strategy_name} vs S&P 500</h2>
+                      <h2 style={{marginTop: '20px'}}>{strategy_name.replace(/-/g, ' ')} vs S&P 500</h2>
                     </CardTitle>
                   </Colxx>
                   <Colxx xxs="2" sm="2" md="2">
@@ -217,7 +243,7 @@ class StrategyDashboard extends Component {
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h1 style={{fontFamily: "'Roboto Condensed', sans-serif"}}>Holdings</h1>
+                      <h1 style={{fontFamily:"'Roboto Condensed', sans-serif"}}>Holdings</h1>
                     </CardTitle>
                   </Colxx>
                   <Colxx xxs="4" sm="4" md="4">
@@ -242,7 +268,7 @@ class StrategyDashboard extends Component {
                       </CardTitle>
                         <ReactTable
                           defaultPageSize={6}
-                          data={this.state.holdings_returns.slice(0, 30)}
+                          data={holdings_r.sort((a, b) => a.ticker.localeCompare(b.ticker))}
                           columns={hr_column}
                           minRows={0}
                           showPageJump={false}
@@ -259,7 +285,7 @@ class StrategyDashboard extends Component {
                       </CardTitle>
                       <ReactTable
                         defaultPageSize={6}
-                        data={this.state.holdings_historicals.slice(0, 30)}
+                        data={holdings_h.sort((a, b) => a.ticker.localeCompare(b.ticker))}
                         columns={hh_column}
                         minRows={0}
                         showPageJump={false}
@@ -276,7 +302,7 @@ class StrategyDashboard extends Component {
                       </CardTitle>
                       <ReactTable
                         defaultPageSize={6}
-                        data={this.state.holdings_fundamentals.slice(0, 30)}
+                        data={holdings_f.slice(0, 30).sort((a, b) => a.ticker.localeCompare(b.ticker))}
                         columns={hf_column}
                         minRows={0}
                         showPageJump={false}
