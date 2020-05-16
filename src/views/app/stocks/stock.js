@@ -93,7 +93,6 @@ class Stock extends Component {
          })
         .catch(error => this.setState({ error }));
     }
-    
   }
 
   render() {
@@ -217,7 +216,7 @@ class Stock extends Component {
 	              <Row>
 		              <Colxx xxs="12" sm="12" md="12">
 		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-		                  <h1 style={{fontSize:'16px', marginTop: '20px', marginBottom:'0', padding:'0'}}>Financial Data</h1>
+		                  <h1 className='roboto-condensed' style={{fontSize:'16px', marginTop: '20px', marginBottom:'0', padding:'0'}}>Financial Data</h1>
 		                </CardTitle>
 		              </Colxx>
 		          </Row>
@@ -262,7 +261,7 @@ class Stock extends Component {
                 <Row>
                   <Colxx xxs="12" sm="12" md="12">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h1 style={{fontSize:'16px', marginTop: '0', marginBottom:'0', padding:'0'}}>Quarterly Financials</h1>
+                      <h1 className='roboto-condensed' style={{fontSize:'16px', marginTop: '0', marginBottom:'0', padding:'0'}}>Quarterly Financials</h1>
                     </CardTitle>
                   </Colxx>
               </Row>
@@ -302,7 +301,7 @@ class Stock extends Component {
               <Row>
                   <Colxx xxs="12" sm="12" md="12">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h1 style={{fontSize:'16px', marginTop: '15px', marginBottom:'0', padding:'0'}}>Yearly Financials</h1>
+                      <h1 className='roboto-condensed' style={{fontSize:'16px', marginTop: '15px', marginBottom:'0', padding:'0'}}>Yearly Financials</h1>
                     </CardTitle>
                   </Colxx>
               </Row>
@@ -342,7 +341,7 @@ class Stock extends Component {
               <Row>
                 <Colxx xxs="12" sm="12" md="12">
                   <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                    <h1 style={{fontSize:'16px', marginTop: '15px', marginBottom:'0', padding:'0'}}>About {quote.shortName}</h1>
+                    <h1 className='roboto-condensed' style={{fontSize:'16px', marginTop: '15px', marginBottom:'0', padding:'0'}}>About {quote.shortName}</h1>
                   </CardTitle>
                   <Card className="mb-4">
                     <CardBody style={{paddingLeft:'1rem', paddingRight:'1rem', paddingTop:'0.5rem', paddingBottom:'0.5rem'}}>
