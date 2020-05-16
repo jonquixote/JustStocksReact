@@ -93,6 +93,7 @@ class Stock extends Component {
          })
         .catch(error => this.setState({ error }));
     }
+    
   }
 
   render() {
@@ -115,6 +116,8 @@ class Stock extends Component {
     const priceFormatter = +(Math.round((quote.regularMarketPrice) + "e+2") + "e-2");
     const updatedTime = moment(quote.regularMarketTime).format('MMMM Do YYYY, h:mm:ss a');
     const changePercentFormatter = +(Math.round((this.state.quote.regularMarketChangePercent*100) + "e+2")  + "e-2");
+    let bFormatter = (num) => Math.abs(num) > 999999999 ? Math.sign(num)*((Math.abs(num)/1000000000).toFixed(1)) + 'B' : Math.sign(num)*Math.abs(num)
+    let mFormatter = (num) => Math.abs(num) > 999999 & Math.abs(num) < 1000000000 ? Math.sign(num)*((Math.abs(num)/1000000).toFixed(1)) + 'M' : Math.sign(num)*Math.abs(num)
     
     // console.log(Object.keys(chart_data).map(date => new Date(date).toLocaleDateString()))
     console.log(Object.values(chart_data))
@@ -126,7 +129,7 @@ class Stock extends Component {
       <Fragment>
         <Row>
           <Colxx xxs="12">
-            <h1>{quote.longName} ({symbol})</h1>
+            <h1 className='orbitron'>{quote.longName} ({symbol})</h1>
             <a style={{color:'gray'}}>   {quote.exchangeName}</a>
             <Separator className="mb-3" />
           </Colxx>
@@ -172,33 +175,33 @@ class Stock extends Component {
                     <tbody style={{fontSize:'12px'}}>
                       <tr>
                         <td>Open</td>
-                        <td style={{color:'gray'}}>{+(Math.round((quote.regularMarketOpen) + "e+2") + "e-2")}</td>
+                        <td style={{color:'dark'}}>{+(Math.round((quote.regularMarketOpen) + "e+2") + "e-2")}</td>
                         <td>Div yield</td>
-                        <td style={{color:'gray'}}>{summaryDetail.dividendYield}</td>
+                        <td style={{color:'dark'}}>{summaryDetail.dividendYield}</td>
                       </tr>
                       <tr>
                         <td>High</td>
-                        <td style={{color:'gray'}}>{quote.regularMarketDayHigh}</td>
+                        <td style={{color:'dark'}}>{quote.regularMarketDayHigh}</td>
                         <td>Prev Close</td>
-                        <td style={{color:'gray'}}>{summaryDetail.previousClose}</td>
+                        <td style={{color:'dark'}}>{summaryDetail.previousClose}</td>
                       </tr>
                       <tr>
                         <td>Low</td>
-                        <td style={{color:'gray'}}>{quote.regularMarketDayLow}</td>
+                        <td style={{color:'dark'}}>{quote.regularMarketDayLow}</td>
                         <td>52-wk high</td>
-                        <td style={{color:'gray'}}>{summaryDetail.fiftyTwoWeekHigh}</td>
+                        <td style={{color:'dark'}}>{summaryDetail.fiftyTwoWeekHigh}</td>
                       </tr>
                       <tr>
                         <td>Mkt cap</td>
-                        <td style={{color:'gray'}}>{parseInt(quote.marketCap).toLocaleString()}</td>
+                        <td style={{color:'dark'}}>{bFormatter(quote.marketCap)}</td>
                         <td>52-wk low</td>
-                        <td style={{color:'gray'}}>{summaryDetail.fiftyTwoWeekLow}</td>
+                        <td style={{color:'dark'}}>{summaryDetail.fiftyTwoWeekLow}</td>
                       </tr>
                       <tr>
                         <td>P/E ratio</td>
-                        <td style={{color:'gray'}}>{financialData.currentRatio}</td>
+                        <td style={{color:'dark'}}>{financialData.currentRatio}</td>
                         <td>Volume</td>
-                        <td style={{color:'gray'}}>{parseInt(quote.regularMarketVolume).toLocaleString()}</td>
+                        <td style={{color:'dark'}}>{mFormatter(quote.regularMarketVolume)}</td>
                       </tr>
                     </tbody>
                   </Table>
@@ -214,24 +217,69 @@ class Stock extends Component {
 	              <Row>
 		              <Colxx xxs="12" sm="12" md="12">
 		              	<CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-		                  <h1 style={{fontSize:'16px', marginTop: '15px', marginBottom:'0', padding:'0'}}>Quarterly Financials</h1>
+		                  <h1 style={{fontSize:'16px', marginTop: '20px', marginBottom:'0', padding:'0'}}>Financial Data</h1>
 		                </CardTitle>
 		              </Colxx>
 		          </Row>
-              <Row>
-                  <Colxx xxs="3" sm="3" md="3" style={{marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+              <Row style={{paddingLeft: '0.5em'}} >
+                <Colxx xxs="12" sm="12" md="12" style={{paddingTop:'0.5rem', paddingLeft:'1.5rem', paddingRight:'1.5rem'}}>
+                  <Table borderless>
+                    <tbody style={{fontSize:'11px'}}>
+                      <tr>
+                        <td>Revenue</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.totalRevenue)}</td>
+                        <td>Profits</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.grossProfits)}</td>
+                      </tr>
+                      <tr>
+                        <td>Debt</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.totalDebt)}</td>
+                        <td>Margins</td>
+                        <td style={{color:'gray'}}>{+(Math.round((financialData.grossMargins*100) + "e+2")  + "e-2")}%</td>
+                      </tr>
+                      <tr>
+                        <td>Cash</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.totalCash)}</td>
+                        <td>Growth</td>
+                        <td style={{color:'gray'}}>{+(Math.round((financialData.revenueGrowth*100) + "e+2")  + "e-2")}%</td>
+                      </tr>
+                      <tr>
+                        <td>$/Share</td>
+                        <td style={{color:'gray'}}>{+(Math.round((financialData.totalCashPerShare) + "e+2") + "e-2")}</td>
+                        <td>ROE</td>
+                        <td style={{color:'gray'}}>{+(Math.round((financialData.returnOnEquity*100) + "e+2")  + "e-2")}%</td>
+                      </tr>
+                      <tr>
+                        <td>Ratio</td>
+                        <td style={{color:'gray'}}>{financialData.currentRatio}</td>
+                        <td>ROA</td>
+                        <td style={{color:'gray'}}>{+(Math.round((financialData.returnOnAssets*100) + "e+2")  + "e-2")}%</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Colxx>
+              </Row>
+                <Row>
+                  <Colxx xxs="12" sm="12" md="12">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h3 style={{fontSize:'10px', textAlign:'center', margin:'0'}}>Date</h3>
+                      <h1 style={{fontSize:'16px', marginTop: '0', marginBottom:'0', padding:'0'}}>Quarterly Financials</h1>
                     </CardTitle>
                   </Colxx>
-                  <Colxx xxs="3" sm="3" md="3" style={{marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-                    <CardTitle style={{display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
-                      <h3 style={{fontSize:'10px', textAlign:'center', margin:'0'}}>Revenue</h3>
+              </Row>
+              <Row style={{paddingLeft: '20px'}}>
+                  <Colxx xxs="3" sm="3" md="3" style={{paddingLeft: '20px', marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+                    <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                      <h3 style={{fontSize:'12px', textAlign:'center', margin:'0'}}>Date</h3>
                     </CardTitle>
                   </Colxx>
-                  <Colxx xxs="3" sm="3" md="3" style={{marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-                    <CardTitle style={{display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
-                      <h3 style={{fontSize:'10px', textAlign:'center', margin:'0'}}>Earnings</h3>
+                  <Colxx xxs="3" sm="3" md="3" style={{paddingLeft: '20px', marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+                    <CardTitle style={{paddingLeft: '20px', display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
+                      <h3 style={{paddingLeft: '20px', fontSize:'12px', textAlign:'right', margin:'0'}}>Revenue</h3>
+                    </CardTitle>
+                  </Colxx>
+                  <Colxx xxs="3" sm="3" md="3" style={{paddingLeft: '20px', marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+                    <CardTitle style={{paddingLeft: '20px', display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
+                      <h3 style={{paddingLeft: '20px', fontSize:'12px', textAlign:'right', margin:'0'}}>Earnings</h3>
                     </CardTitle>
                   </Colxx>
               </Row>
@@ -242,9 +290,9 @@ class Stock extends Component {
                       
                       return (
                         <tr key={index} style={{padding:'0,10px,0,10px', color:'gray'}}>
-                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
-                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
-                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
                         </tr>
                       );
                     })}
@@ -258,20 +306,20 @@ class Stock extends Component {
                     </CardTitle>
                   </Colxx>
               </Row>
-              <Row>
-                  <Colxx xxs="3" sm="3" md="3" style={{marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+              <Row style={{paddingLeft: '20px'}} >
+                  <Colxx xxs="3" sm="3" md="3" style={{paddingLeft: '20px', marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h3 style={{fontSize:'10px', textAlign:'center', margin:'0'}}>Date</h3>
+                      <h3 style={{fontSize:'12px', textAlign:'center', margin:'0'}}>Date</h3>
                     </CardTitle>
                   </Colxx>
-                  <Colxx xxs="3" sm="3" md="3" style={{marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-                    <CardTitle style={{display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
-                      <h3 style={{fontSize:'10px', textAlign:'center', margin:'0'}}>Revenue</h3>
+                  <Colxx xxs="3" sm="3" md="3" style={{paddingLeft: '20px', marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+                    <CardTitle style={{paddingLeft: '20px', display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
+                      <h3 style={{paddingLeft: '20px', fontSize:'12px', textAlign:'right', margin:'0'}}>Revenue</h3>
                     </CardTitle>
                   </Colxx>
-                  <Colxx xxs="3" sm="3" md="3" style={{marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-                    <CardTitle style={{display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
-                      <h3 style={{fontSize:'10px', textAlign:'center', margin:'0'}}>Earnings</h3>
+                  <Colxx xxs="3" sm="3" md="3" style={{paddingLeft: '20px', marginTop:'5px', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+                    <CardTitle style={{paddingLeft: '20px', display: 'flex', justifyContent: 'center', alignItems:'center', margin: 'auto', top:'50%'}}>
+                      <h3 style={{paddingLeft: '20px', fontSize:'12px', textAlign:'right', margin:'0'}}>Earnings</h3>
                     </CardTitle>
                   </Colxx>
               </Row>
@@ -282,9 +330,9 @@ class Stock extends Component {
                       
                       return (
                         <tr key={index} style={{padding:'0,10px,0,10px', color:'gray'}}>
-                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
-                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
-                          <td style={{fontSize:'10px', padding:'2px', textAlign:'center'}}>${parseInt(listValue.revenue).toLocaleString()}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
                         </tr>
                       );
                     })}
