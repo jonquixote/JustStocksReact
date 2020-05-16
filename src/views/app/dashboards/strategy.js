@@ -313,7 +313,7 @@ class StrategyDashboard extends Component {
                   : null
               }
                 <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
-                  <IntlMessages id={"Performance Statistics"} />
+                  <IntlMessages  className='roboto-condensed' id={"Performance Statistics"} />
                 </CardTitle>
                 <Table>
                   <thead>
@@ -344,7 +344,7 @@ class StrategyDashboard extends Component {
             <Card className="mb-4">
               <CardBody style={{paddingTop:'1rem', paddingLeft:'0.5rem', paddingBottom:'0.5rem', paddingRight:'0.5rem'}}>
                 <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
-                  <IntlMessages id="General Info" />
+                  <IntlMessages className='roboto-condensed' id="General Info" />
                 </CardTitle>
                 <Table>
                   <tbody>
@@ -360,7 +360,7 @@ class StrategyDashboard extends Component {
                   </tbody>
                 </Table>
                  <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
-                  <IntlMessages id="Quick Stats" />
+                  <IntlMessages className='roboto-condensed' id="Quick Stats" />
                 </CardTitle>
                 <Table>
                   <tbody>
