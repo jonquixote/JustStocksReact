@@ -47,58 +47,59 @@ class StrategyDashboard extends Component {
   componentDidMount() {
   var self = this
   const { strategy_name } = this.state.strategy_name
-  console.log('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+  const js_rails_server = 'http://jsmoney.herokuapp.com'
+  console.log(js_rails_server + '/api/strategies/all/holdings_returns/' + strategy_name)
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+    .get(js_rails_server + '/api/strategies/all/holdings_returns/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_returns: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_historicals/' + strategy_name)
+    .get(js_rails_server + '/api/strategies/all/holdings_historicals/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_historicals: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_fundamentals/' + strategy_name)
+    .get(js_rails_server + '/api/strategies/all/holdings_fundamentals/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({holdings_fundamentals: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
+    .get(js_rails_server + '/api/strategies/all/stats_performances/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({stats_performances: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/strategy_summaries/' + strategy_name)
+    .get(js_rails_server + '/api/strategies/all/strategy_summaries/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({strategy_summaries: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/strategy_summary_stats/' + strategy_name)
+    .get(js_rails_server + '/api/strategies/all/strategy_summary_stats/' + strategy_name)
     .then(function (response) {
        console.log(response.data)
        self.setState({strategy_summary_stats: response.data})
      })
     .catch(error => this.setState({ error }));
   axios
-    .get('https://cryptic-retreat-20149.herokuapp.com/api/charts')
+    .get(js_rails_server + '/api/charts')
     .then(function (response) {
        console.log(response.data)
        self.setState({chart_data: response.data})
      })
     .catch(error => this.setState({ error }));
     axios
-      .get('https://jsmoney.herokuapp.com/api/live_strategies/' + strategy_name)
+      .get(js_rails_server + '/api/live_strategies/' + strategy_name)
       .then(function (response) {
          console.log(response.data)
          self.setState({live_strategy: response.data})
@@ -111,59 +112,60 @@ class StrategyDashboard extends Component {
   componentDidUpdate(prevProps) {
     var self = this
     const { strategy_name } = this.state.strategy_name
+    const js_rails_server = 'http://jsmoney.herokuapp.com'
     if (prevProps.match.params !== this.props.match.params) {
       this.setState({ strategy_name: this.props.match.params })
       axios
-        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_returns/' + strategy_name)
+        .get(js_rails_server + '/api/strategies/all/holdings_returns/' + strategy_name)
         .then(function (response) {
            console.log(response.data)
            self.setState({holdings_returns: response.data})
          })
         .catch(error => this.setState({ error }));
         axios
-          .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_historicals/' + strategy_name)
+          .get(js_rails_server + '/api/strategies/all/holdings_historicals/' + strategy_name)
           .then(function (response) {
              console.log(response.data)
              self.setState({holdings_historicals: response.data})
            })
           .catch(error => this.setState({ error }));
         axios
-          .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/holdings_fundamentals/' + strategy_name)
+          .get(js_rails_server + '/api/strategies/all/holdings_fundamentals/' + strategy_name)
           .then(function (response) {
              console.log(response.data)
              self.setState({holdings_fundamentals: response.data})
            })
           .catch(error => this.setState({ error }));
       axios
-        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/stats_performances/' + strategy_name)
+        .get(js_rails_server + '/api/strategies/all/stats_performances/' + strategy_name)
         .then(function (response) {
            console.log(response.data)
            self.setState({stats_performances: response.data})
          })
         .catch(error => this.setState({ error }));
       axios
-        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/strategy_summaries/' + strategy_name)
+        .get(js_rails_server + '/api/strategies/all/strategy_summaries/' + strategy_name)
         .then(function (response) {
            console.log(response.data)
            self.setState({strategy_summaries: response.data})
          })
         .catch(error => this.setState({ error }));
       axios
-        .get('https://cryptic-retreat-20149.herokuapp.com/api/strategies/all/strategy_summary_stats/' + strategy_name)
+        .get(js_rails_server + '/api/strategies/all/strategy_summary_stats/' + strategy_name)
         .then(function (response) {
            console.log(response.data)
            self.setState({strategy_summary_stats: response.data})
          })
         .catch(error => this.setState({ error }));
       axios
-        .get('https://cryptic-retreat-20149.herokuapp.com/api/charts')
+        .get(js_rails_server + '/api/charts')
         .then(function (response) {
            console.log(response.data)
            self.setState({chart_data: response.data})
          })
         .catch(error => this.setState({ error }));
       axios
-        .get('https://jsmoney.herokuapp.com/api/live_strategies/' + strategy_name)
+        .get(js_rails_server + '/api/live_strategies/' + strategy_name)
         .then(function (response) {
            console.log(response.data)
            self.setState({live_strategy: response.data})

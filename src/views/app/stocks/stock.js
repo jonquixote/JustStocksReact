@@ -13,7 +13,6 @@ import fetch from "fetch";
 
 import { JUST_STOCKS_API_URL } from "../../../constants/constants";
 
-var yahooFinance = require('yahoo-finance');
 var fetchUrl = require("fetch").fetchUrl;
 
 class Stock extends Component {
@@ -56,7 +55,7 @@ class Stock extends Component {
        self.setState({defaultKeyStatistic: response.data.defaultKeyStatistic})
        self.setState({calendarEvents: response.data.calendarEvents})
        self.setState({summaryProfile: response.data.summaryProfile})
-       self.setState({summaryDetail: response.data.summaryProfile})
+       self.setState({summaryDetail: response.data.summaryDetail})
      })
     .catch(error => this.setState({ error }));
   console.log(this.state.quote)
@@ -110,18 +109,18 @@ class Stock extends Component {
     // const parseChart = JSON.parse(chart_data);
     // const formattedChartData = JSON.stringify(chart_data)
     // const tickFormatter = (tick) => moment(tick, 'MMMM DD, YYYY').format('ll');
-    const tickFormatter = (tick) => moment(tick).format('MMMM DD, YYYY');
-    const sTickFormatter = (s) => +(Math.round((s) + "e+2") + "e-2");
-    const priceFormatter = +(Math.round((quote.regularMarketPrice) + "e+2") + "e-2");
-    const updatedTime = moment(quote.regularMarketTime).format('MMMM Do YYYY, h:mm:ss a');
-    const changePercentFormatter = +(Math.round((this.state.quote.regularMarketChangePercent*100) + "e+2")  + "e-2");
-    let bFormatter = (num) => Math.abs(num) > 999999999 ? Math.sign(num)*((Math.abs(num)/1000000000).toFixed(1)) + 'B' : Math.sign(num)*Math.abs(num)
-    let mFormatter = (num) => Math.abs(num) > 999999 & Math.abs(num) < 1000000000 ? Math.sign(num)*((Math.abs(num)/1000000).toFixed(1)) + 'M' : Math.sign(num)*Math.abs(num)
+    const tickFormatter = (tick) => tick != undefined ? moment(tick).format('MMMM DD, YYYY') : '';
+    const sTickFormatter = (s) => s != undefined ? +(Math.round((s) + "e+2") + "e-2") : '';
+    const priceFormatter = (num) => num != undefined ? +(Math.round((num) + "e+2") + "e-2") : '';
+    const timeFormatter = (num) => num != undefined ? moment(num).format('MMMM Do YYYY, h:mm:ss a') : '';
+    const percentFormatter = (num) => num != undefined ? +(Math.round((num*100) + "e+2")  + "e-2") : '';
+    let bFormatter = (num) => num != undefined ? Math.abs(num) > 999999999 ? Math.sign(num)*((Math.abs(num)/1000000000).toFixed(1)) + 'B' : Math.sign(num)*Math.abs(num) : '';
+    let mFormatter = (num) => num != undefined ? Math.abs(num) > 999999 & Math.abs(num) < 1000000000 ? Math.sign(num)*((Math.abs(num)/1000000).toFixed(1)) + 'M' : Math.sign(num)*Math.abs(num) : '';
     
     // console.log(Object.keys(chart_data).map(date => new Date(date).toLocaleDateString()))
     console.log(Object.values(chart_data))
     console.log(stringifyChart)
-    console.log(quote)
+    console.log(quote.regularMarketTime)
 
 
     return (
@@ -139,16 +138,16 @@ class Stock extends Component {
               <Row>
                   <Colxx xxs="12" sm="12" md="12">
                     <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto', verticalAlign:'middle'}}>
-                      <h1 style={{marginTop: '15px', marginBottom:'0', padding:'0', verticalAlign:'middle'}}>{priceFormatter}</h1>
+                      <h1 style={{marginTop: '15px', marginBottom:'0', padding:'0', verticalAlign:'middle'}}>{priceFormatter(quote.regularMarketPrice)}</h1>
                       <h2 style={{marginTop: '26px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'9px', textAlign:'center', marginRight: '5px', color:'gray'}}>{quote.currency}</h2>
-                      <h3 style={{marginTop: '23px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'12px', textAlign:'center'}}>{+(Math.round((quote.regularMarketChange) + "e+2") + "e-2")}</h3>
-                      <h3 style={{marginTop: '23px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'12px', textAlign:'center'}}>({changePercentFormatter}%)</h3>
+                      <h3 style={{marginTop: '20px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'14px', textAlign:'center', color: Math.sign(quote.regularMarketChange) === -1 ? "red" : "green"}}>{priceFormatter(quote.regularMarketChange)}</h3>
+                      <h3 style={{marginTop: '18px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'14px', textAlign:'center'}}>(</h3><h3 style={{marginTop: '19px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'14px', textAlign:'center', color: Math.sign(quote.regularMarketChange) === -1 ? "red" : "green"}}>{percentFormatter(quote.regularMarketChangePercent)}%</h3><h3 style={{marginTop: '18px', marginBottom:'0', padding:'0', verticalAlign:'middle', fontSize:'14px', textAlign:'center'}}>)</h3>
                     </CardTitle>
                   </Colxx>
               </Row>
               <Row>
                   <Colxx xxs="12" sm="12" md="12" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <a style={{fontSize:'6px', textAlign:'center'}}>updated {updatedTime}</a>
+                      <a style={{fontSize:'6px', textAlign:'center'}}>updated {timeFormatter(quote.regularMarketTime)}</a>
                   </Colxx>
               </Row>
               <Row>
@@ -174,7 +173,7 @@ class Stock extends Component {
                     <tbody style={{fontSize:'12px'}}>
                       <tr>
                         <td>Open</td>
-                        <td style={{color:'dark'}}>{+(Math.round((quote.regularMarketOpen) + "e+2") + "e-2")}</td>
+                        <td style={{color:'dark'}}>{priceFormatter(quote.regularMarketOpen)}</td>
                         <td>Div yield</td>
                         <td style={{color:'dark'}}>{summaryDetail.dividendYield}</td>
                       </tr>
@@ -206,7 +205,7 @@ class Stock extends Component {
                   </Table>
                 </Colxx>
               </Row>
-              
+
               <Row>
                 <Colxx xxs="12" sm="12" md="12">
                   <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
@@ -247,25 +246,25 @@ class Stock extends Component {
                         <td>Debt</td>
                         <td style={{color:'gray'}}>{bFormatter(financialData.totalDebt)}</td>
                         <td>Margins</td>
-                        <td style={{color:'gray'}}>{+(Math.round((financialData.grossMargins*100) + "e+2")  + "e-2")}%</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.grossMargins)}%</td>
                       </tr>
                       <tr>
                         <td>Cash</td>
                         <td style={{color:'gray'}}>{bFormatter(financialData.totalCash)}</td>
                         <td>Growth</td>
-                        <td style={{color:'gray'}}>{+(Math.round((financialData.revenueGrowth*100) + "e+2")  + "e-2")}%</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.revenueGrowth)}%</td>
                       </tr>
                       <tr>
                         <td>$/Share</td>
-                        <td style={{color:'gray'}}>{+(Math.round((financialData.totalCashPerShare) + "e+2") + "e-2")}</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.totalCashPerShare)}</td>
                         <td>ROE</td>
-                        <td style={{color:'gray'}}>{+(Math.round((financialData.returnOnEquity*100) + "e+2")  + "e-2")}%</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.returnOnEquity)}%</td>
                       </tr>
                       <tr>
                         <td>Ratio</td>
                         <td style={{color:'gray'}}>{financialData.currentRatio}</td>
                         <td>ROA</td>
-                        <td style={{color:'gray'}}>{+(Math.round((financialData.returnOnAssets*100) + "e+2")  + "e-2")}%</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.returnOnAssets)}%</td>
                       </tr>
                     </tbody>
                   </Table>
@@ -298,16 +297,16 @@ class Stock extends Component {
               <Row style={{margin:'0'}}>
                 <Table>
                   <tbody>
-                    {earnings_quarterly.reverse().map(( listValue, index ) => {
+                    {earnings_quarterly.map(( listValue, index ) => {
                       
                       return (
                         <tr key={index} style={{padding:'0,10px,0,10px', color:'gray'}}>
                           <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
                           <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
-                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{mFormatter(listValue.earnings)}</td>
                         </tr>
                       );
-                    })}
+                    }).reverse()}
                   </tbody>
                 </Table>
               </Row>
@@ -338,18 +337,63 @@ class Stock extends Component {
               <Row style={{margin:'0'}}>
                 <Table>
                   <tbody>
-                    {earnings_yearly.reverse().map(( listValue, index ) => {
+                    {earnings_yearly.map(( listValue, index ) => {
                       
                       return (
                         <tr key={index} style={{padding:'0,10px,0,10px', color:'gray'}}>
                           <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{listValue.date}</td>
                           <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
-                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{bFormatter(listValue.revenue)}</td>
+                          <td style={{fontSize:'12px', padding:'2px', textAlign:'center'}}>{mFormatter(listValue.earnings)}</td>
                         </tr>
                       );
-                    })}
+                    }).reverse()}
                   </tbody>
                 </Table>
+              </Row>
+              <Row>
+                <Colxx xxs="12" sm="12" md="12">
+                  <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                    <h1 className='roboto-condensed' style={{fontSize:'16px', marginTop: '20px', marginBottom:'0', padding:'0'}}>Financial Data</h1>
+                  </CardTitle>
+                </Colxx>
+              </Row>
+              <Row style={{paddingLeft: '0.5em'}} >
+                <Colxx xxs="12" sm="12" md="12" style={{paddingTop:'0.5rem', paddingLeft:'1.5rem', paddingRight:'1.5rem'}}>
+                  <Table borderless>
+                    <tbody style={{fontSize:'11px'}}>
+                      <tr>
+                        <td>Revenue</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.totalRevenue)}</td>
+                        <td>Profits</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.grossProfits)}</td>
+                      </tr>
+                      <tr>
+                        <td>Debt</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.totalDebt)}</td>
+                        <td>Margins</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.grossMargins)}%</td>
+                      </tr>
+                      <tr>
+                        <td>Cash</td>
+                        <td style={{color:'gray'}}>{bFormatter(financialData.totalCash)}</td>
+                        <td>Growth</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.revenueGrowth)}%</td>
+                      </tr>
+                      <tr>
+                        <td>$/Share</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.totalCashPerShare)}</td>
+                        <td>ROE</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.returnOnEquity)}%</td>
+                      </tr>
+                      <tr>
+                        <td>Ratio</td>
+                        <td style={{color:'gray'}}>{financialData.currentRatio}</td>
+                        <td>ROA</td>
+                        <td style={{color:'gray'}}>{percentFormatter(financialData.returnOnAssets)}%</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Colxx>
               </Row>
               <Row>
               </Row>

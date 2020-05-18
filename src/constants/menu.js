@@ -14,6 +14,10 @@ const data = [
         to: "/app/dashboards/AMC"
       },
       {
+        label: "Barriers To Entry",
+        to: "/app/dashboards/Barriers-To-Entry"
+      },
+      {
         label: "Barriers To Entry 2",
         to: "/app/dashboards/Barriers-To-Entry-2"
       },
