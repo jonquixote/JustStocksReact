@@ -5,10 +5,10 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-table/react-table.css";
 
 import { isMultiColorActive, defaultColor } from "./constants/defaultValues";
-const color =
-  isMultiColorActive && localStorage.getItem("themeColor")
-    ? localStorage.getItem("themeColor")
-    : defaultColor;
+const color = 'light.green';
+  // isMultiColorActive && localStorage.getItem("themeColor")
+  //   ? localStorage.getItem("themeColor")
+  //   : defaultColor;
 
 localStorage.setItem("themeColor", color);
 

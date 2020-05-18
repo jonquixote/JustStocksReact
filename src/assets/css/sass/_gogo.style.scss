@@ -226,6 +226,16 @@ body {
 .roboto-condensed {
   font-family: 'Roboto Condensed', sans-serif;
 }
+
+.b-hover button h1{
+  font-size: 20px;
+}
+
+.b-hover button:hover h1{
+  font-size: 20px;
+  color: #576a3d;
+}
+
 /* End of Custom */
 
 .fixed-background {

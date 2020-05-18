@@ -20,6 +20,7 @@ import Pagination from "../../../components/DatatablePagination";
 
 import infodata from "../../../data/strategy_summaries";
 import infostats from "../../../data/strat_sum_stat";
+import hc_column from "../../../data/hc_column";
 import hr_column from "../../../data/hr_column";
 import hf_column from "../../../data/hf_column";
 import hh_column from "../../../data/hh_column";
@@ -31,15 +32,18 @@ import moment from "moment";
 class StrategyDashboard extends Component {
   state = {
     strategy_name: this.props.match.params,
-    hrshowing: true,
+    hcshowing: true,
+    hrshowing: false,
     hhshowing: false,
     hfshowing:  false,
+    holdings_currents: [],
     holdings_returns: [],
     holdings_historicals: [],
     holdings_fundamentals: [],
     stats_performances: [],
     strategy_summaries: [],
     strategy_summary_stats: [],
+    strategy_trading_stats: [],
     chart_data: [],
     live_strategy: [],
     live_strategy_num: []
@@ -47,8 +51,14 @@ class StrategyDashboard extends Component {
   componentDidMount() {
   var self = this
   const { strategy_name } = this.state.strategy_name
-  const js_rails_server = 'http://jsmoney.herokuapp.com'
-  console.log(js_rails_server + '/api/strategies/all/holdings_returns/' + strategy_name)
+  const js_rails_server = 'http://64.225.88.73'
+  axios
+    .get(js_rails_server + '/api/strategies/all/holdings_currents/' + strategy_name)
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({holdings_currents: response.data})
+     })
+    .catch(error => this.setState({ error }));
   axios
     .get(js_rails_server + '/api/strategies/all/holdings_returns/' + strategy_name)
     .then(function (response) {
@@ -92,6 +102,13 @@ class StrategyDashboard extends Component {
      })
     .catch(error => this.setState({ error }));
   axios
+    .get(js_rails_server + '/api/strategies/all/strategy_trading_stats/' + strategy_name)
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({strategy_trading_stats: response.data})
+     })
+    .catch(error => this.setState({ error }));
+  axios
     .get(js_rails_server + '/api/charts')
     .then(function (response) {
        console.log(response.data)
@@ -112,9 +129,16 @@ class StrategyDashboard extends Component {
   componentDidUpdate(prevProps) {
     var self = this
     const { strategy_name } = this.state.strategy_name
-    const js_rails_server = 'http://jsmoney.herokuapp.com'
+    const js_rails_server = 'http://64.225.88.73'
     if (prevProps.match.params !== this.props.match.params) {
       this.setState({ strategy_name: this.props.match.params })
+      axios
+        .get(js_rails_server + '/api/strategies/all/holdings_currents/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({holdings_currents: response.data})
+         })
+        .catch(error => this.setState({ error }));
       axios
         .get(js_rails_server + '/api/strategies/all/holdings_returns/' + strategy_name)
         .then(function (response) {
@@ -158,6 +182,13 @@ class StrategyDashboard extends Component {
          })
         .catch(error => this.setState({ error }));
       axios
+        .get(js_rails_server + '/api/strategies/all/strategy_trading_stats/' + strategy_name)
+        .then(function (response) {
+           console.log(response.data)
+           self.setState({strategy_trading_stats: response.data})
+         })
+        .catch(error => this.setState({ error }));
+      axios
         .get(js_rails_server + '/api/charts')
         .then(function (response) {
            console.log(response.data)
@@ -181,15 +212,20 @@ class StrategyDashboard extends Component {
     const stats_perf = this.state.stats_performances.slice(35, 41)
     const info_data = this.state.strategy_summaries.slice(3, 11)
     const strategy_stats = this.state.strategy_summary_stats.slice(0, 11)
+    const { hcshowing } = this.state;
     const { hrshowing } = this.state;
     const { hfshowing } = this.state;
     const { hhshowing } = this.state;
     const { chart_data } = this.state;
+    const { holdings_currents } = this.state;
     const { holdings_returns } = this.state;
     const { holdings_fundamentals } = this.state;
     const { holdings_historicals } = this.state;
+    const { stats_performances } = this.state;
+    const { strategy_trading_stats } = this.state;
     const { live_strategy } = this.state;
     const { live_strategy_num } = this.state;
+    const holdings_c = holdings_currents.slice(0, live_strategy_num.holdings);
     const holdings_r = holdings_returns.slice(0, live_strategy_num.holdings);
     const holdings_f = holdings_fundamentals.slice(0, live_strategy_num.holdings);
     const holdings_h = holdings_historicals.slice(0, live_strategy_num.holdings);
@@ -252,22 +288,36 @@ class StrategyDashboard extends Component {
 
                   </Colxx>
                 </Row>
-                <Row>
-                  <Colxx xxs="4" sm="12" md="4" className="mb-3" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hrshowing: true, hhshowing: false, hfshowing: false })}>Returns</Button>
+                <Row style={{paddingLeft:'15px', paddingRight:'15px'}}>
+                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hcshowing === true ? "#849b65" : "#d1c19a", borderBottom: hcshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hcshowing: true, hrshowing: false, hhshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Current</h1></Button>
                   </Colxx>
-                  <Colxx xxs="4" sm="12" md="4" className="mb-3" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hfshowing: true, hrshowing: false, hhshowing: false })}>Fundamentals</Button>
+                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hrshowing === true ? "#849b65" : "#d1c19a", borderBottom: hrshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hrshowing: true, hcshowing: false, hhshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Returns</h1></Button>
                   </Colxx>
-                  <Colxx xxs="4" sm="12" md="4" className="mb-3" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ lineHeight: '1', borderRadius: '150px' }} onClick={() => this.setState({ hhshowing: true, hrshowing: false, hfshowing: false })}>Historicals</Button>
+                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hfshowing === true ? "#849b65" : "#d1c19a", borderBottom: hfshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hfshowing: true, hcshowing: false, hrshowing: false, hhshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Fundamentals</h1></Button>
+                  </Colxx>
+                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hhshowing === true ? "#849b65" : "#d1c19a", borderBottom: hhshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hhshowing: true, hcshowing: false, hrshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Historicals</h1></Button>
                   </Colxx>
                 </Row>
+                { hcshowing 
+                    ? <div>
+                        <ReactTable
+                          defaultPageSize={6}
+                          data={holdings_c.sort((a, b) => a.ticker.localeCompare(b.ticker))}
+                          columns={hc_column}
+                          minRows={0}
+                          showPageJump={false}
+                          showPageSizeOptions={false}
+                          PaginationComponent={Pagination}
+                        />
+                      </div>
+                    : null
+                }
                 { hrshowing 
                     ? <div>
-                      <CardTitle  className="mb-2" style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                        <IntlMessages id={"Returns"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
-                      </CardTitle>
                         <ReactTable
                           defaultPageSize={6}
                           data={holdings_r.sort((a, b) => a.ticker.localeCompare(b.ticker))}
@@ -282,9 +332,6 @@ class StrategyDashboard extends Component {
                 }
               { hhshowing 
                   ? <div>
-                      <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                        <IntlMessages id={"Historicals"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
-                      </CardTitle>
                       <ReactTable
                         defaultPageSize={6}
                         data={holdings_h.sort((a, b) => a.ticker.localeCompare(b.ticker))}
@@ -299,9 +346,6 @@ class StrategyDashboard extends Component {
               }
               { hfshowing 
                   ? <div>
-                      <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                        <IntlMessages id={"Fundamentals"} style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}/>
-                      </CardTitle>
                       <ReactTable
                         defaultPageSize={6}
                         data={holdings_f.slice(0, 30).sort((a, b) => a.ticker.localeCompare(b.ticker))}
