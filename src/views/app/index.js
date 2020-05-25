@@ -9,6 +9,7 @@ import pages from "./pages";
 import applications from "./applications";
 import ui from "./ui";
 import menu from "./menu";
+import indexPage from "./index-page";
 import blankPage from "./blank-page";
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
     return (
       <AppLayout>
         <Switch>
-          <Redirect exact from={`${match.url}/`} to={`${match.url}/pages`} />
+          <Redirect exact from={`${match.url}/`} to={`${match.url}/blank-page`} component={blankPage} />
           <Route path={`${match.url}/dashboards`} component={dashboards} />
           <Route path={`${match.url}/stocks`} component={stocks} />
           <Route path={`${match.url}/applications`} component={applications} />
@@ -26,6 +27,7 @@ class App extends Component {
           <Route path={`${match.url}/ui`} component={ui} />
           <Route path={`${match.url}/menu`} component={menu} />
           <Route path={`${match.url}/blank-page`} component={blankPage} />
+          <Route path={`${match.url}/index`} component={blankPage} />
           <Redirect to="/error" />
         </Switch>
       </AppLayout>

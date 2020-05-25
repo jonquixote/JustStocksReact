@@ -37,16 +37,24 @@ const CustomTbodyComponent = props => (
 
 class DashboardHome extends Component {
   state = {
+    strategy_stats: [],
     live_strategies: []
   }
   componentDidMount() {
   var self = this
-  console.log('https://jsmoney.herokuapp.com/api/live_strategies')
+  const js_rails_server = 'https://api.juststocks.com'
   axios
-    .get('https://jsmoney.herokuapp.com/api/live_strategies')
+    .get(js_rails_server + '/api/live_strategies')
     .then(function (response) {
        console.log(response.data)
        self.setState({live_strategies: response.data})
+     })
+    .catch(error => this.setState({ error }));
+  axios
+    .get(js_rails_server + '/api/strategies/all/holdings_currents')
+    .then(function (response) {
+       console.log(response.data)
+       self.setState({strategy_stats: response.data})
      })
     .catch(error => this.setState({ error }));
   }
@@ -55,7 +63,7 @@ class DashboardHome extends Component {
   render() {
     const {messages} = this.props.intl;
     const { live_strategies } = this.state;
-    console.log(live_strategies)
+    const top_performers_data = this.state.strategy_stats.slice(3, 83)
 
     function sortDesc(a, b) {
       return a > b ? -1 : b > a ? 1 : 0;
@@ -116,72 +124,75 @@ class DashboardHome extends Component {
     return (
       <Fragment>
         <Row>
-          <Colxx xxs="12">
-            <h1 className='orbitron'>Live Strategies</h1>
-            <Separator className="mb-3" />
-          </Colxx>
-        </Row>
-
-        <Row>
-          <Colxx xxs="12" sm="6" md="8" style={{paddingRight:'10px', paddingLeft:'10px'}}>
-            <Card className="h-100">
-              <CardBody style={{paddingTop:'1.5rem', paddingLeft:'1.5rem', paddingRight:'1.5rem', paddingBottom:'0.5rem'}}>
-                <ReactTable
-                  defaultPageSize={11}
-                  data={live_strategies.slice(0, 44).sort((a, b) => a.name.localeCompare(b.name)).reverse()}
-                  columns={dataTableColumns}
-                  minRows={0}
-                  showPageJump={false}
-                  showPageSizeOptions={false}
-                  PaginationComponent={Pagination} 
-                   sorted={[
-                     {
-                      id: 'lastName',
-                      desc: true
-                     }
-                   ]}
-                />
-                <Table>
-                  <tbody>
-                    
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
+          <Colxx xxs="12" sm="6" md="8">
+            <Row>
+              <Colxx xxs="12">
+                <h1 className='orbitron'>Live Strategies</h1>
+                <Separator className="mb-3" />
+              </Colxx>
+            </Row>
+            <Row>
+              <Colxx xxs="12" style={{paddingRight:'10px', paddingLeft:'10px'}}>
+                <Card className="h-100">
+                  <CardBody style={{paddingTop:'1.5rem', paddingLeft:'1.5rem', paddingRight:'1.5rem', paddingBottom:'0.5rem'}}>
+                    <ReactTable
+                      defaultPageSize={11}
+                      data={live_strategies.slice(0, 44).sort((a, b) => a.name.localeCompare(b.name)).reverse()}
+                      columns={dataTableColumns}
+                      minRows={0}
+                      showPageJump={false}
+                      showPageSizeOptions={false}
+                      PaginationComponent={Pagination} 
+                       sorted={[
+                         {
+                          id: 'lastName',
+                          desc: true
+                         }
+                       ]}
+                    />
+                    <Table>
+                      <tbody>
+                        
+                      </tbody>
+                    </Table>
+                  </CardBody>
+                </Card>
+              </Colxx>
+            </Row>
           </Colxx>
 
           <Colxx xxs="12" sm="6" md="4" style={{paddingRight:'10px', paddingLeft:'10px'}}>
             <Card className="mb-4">
               <CardBody style={{paddingTop:'1rem', paddingLeft:'0.5rem', paddingBottom:'0.5rem', paddingRight:'0.5rem'}}>
-                <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
-                  <IntlMessages id="Top Performers" />
-                </CardTitle>
-                <Table>
-                  <tbody>
-                    <ReactTable
-                      data={live_strategies.reverse()}
-                      TbodyComponent={CustomTbodyComponent}
-                      columns={topAnnualColumn}
-                      defaultPageSize={44}
-                      showPageJump={false}
-                      showPageSizeOptions={false}
-                      showPagination={false}
-                      className={"react-table-fixed-height"}
-                    />
-                  </tbody>
-                </Table>
-                 <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
-                  <IntlMessages id="Quick Stats" />
-                </CardTitle>
-                <Table>
-                  <tbody>
+                  <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
+                    <IntlMessages id="Top Performers" />
+                  </CardTitle>
+                  <Table>
+                    <tbody>
+                      <ReactTable
+                        data={live_strategies.reverse()}
+                        TbodyComponent={CustomTbodyComponent}
+                        columns={topAnnualColumn}
+                        defaultPageSize={44}
+                        showPageJump={false}
+                        showPageSizeOptions={false}
+                        showPagination={false}
+                        className={"react-table-fixed-height"}
+                      />
+                    </tbody>
+                  </Table>
+                   <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
+                    <IntlMessages id="Quick Stats" />
+                  </CardTitle>
+                  <Table>
+                    <tbody>
 
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Colxx>
-        </Row>
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Colxx>
+          </Row>
 
       </Fragment>
     );

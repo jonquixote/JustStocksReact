@@ -51,7 +51,7 @@ class StrategyDashboard extends Component {
   componentDidMount() {
   var self = this
   const { strategy_name } = this.state.strategy_name
-  const js_rails_server = 'http://64.225.88.73'
+  const js_rails_server = 'https://api.juststocks.com'
   axios
     .get(js_rails_server + '/api/strategies/all/holdings_currents/' + strategy_name)
     .then(function (response) {
@@ -129,7 +129,7 @@ class StrategyDashboard extends Component {
   componentDidUpdate(prevProps) {
     var self = this
     const { strategy_name } = this.state.strategy_name
-    const js_rails_server = 'http://64.225.88.73'
+    const js_rails_server = 'https://api.juststocks.com'
     if (prevProps.match.params !== this.props.match.params) {
       this.setState({ strategy_name: this.props.match.params })
       axios
@@ -236,154 +236,158 @@ class StrategyDashboard extends Component {
     return (
       <Fragment>
         <Row>
-          <Colxx xxs="12">
-            <h1 className='orbitron'>{strategy_name.replace(/-/g, ' ')}</h1>
-            <a>   Live Strategy</a>
-            <Separator className="mb-3" />
-          </Colxx>
-        </Row>
+          <Colxx xxs="12" sm="6" md="8">
+            <Row>
+              <Colxx xxs="12">
+                <h1 className='orbitron'>{strategy_name.replace(/-/g, ' ')}</h1>
+                <a>   Live Strategy</a>
+                <Separator className="mb-3" />
+              </Colxx>
+            </Row>
 
-        <Row>
-          <Colxx xxs="12" sm="6" md="8" style={{paddingRight:'10px', paddingLeft:'10px'}}>
-            <Card className="h-100">
-              <Row>
-                  <Colxx xxs="2" sm="2" md="2">
-                    
-                  </Colxx>
-                  <Colxx xxs="8" sm="8" md="8">
-                    <CardTitle className='source-sans-pro' style={{fontStyle:'italic', isplay: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h2 style={{marginTop: '20px'}}>{strategy_name.replace(/-/g, ' ')} vs S&P 500</h2>
+            <Row>
+              <Colxx xxs="12" style={{paddingRight:'10px', paddingLeft:'10px'}}>
+                <Card className="h-100">
+                  <Row>
+                      <Colxx xxs="2" sm="2" md="2">
+                        
+                      </Colxx>
+                      <Colxx xxs="8" sm="8" md="8">
+                        <CardTitle className='source-sans-pro' style={{fontStyle:'italic', isplay: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                          <h2 style={{marginTop: '20px'}}>{strategy_name.replace(/-/g, ' ')} vs S&P 500</h2>
+                        </CardTitle>
+                      </Colxx>
+                      <Colxx xxs="2" sm="2" md="2">
+
+                      </Colxx>
+                    </Row>
+                  <Row>
+                    <Colxx xxs="12" sm="12" md="12" padding="0">
+                      <ResponsiveContainer width="96%" aspect={2}>
+                        <AreaChart data={chart_data} margin={{top: 0, right: 0, left: -9, bottom: 0}} padding={{top: 0, right: 10, left: 0, bottom: 0}}>
+                          <CartesianGrid strokeDasharray="3 3"/>
+                          <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} />
+                          <YAxis/>
+                          <Tooltip labelFormatter={t => new Date(t).toLocaleDateString()} />
+                          <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#28a745' fill='#007bff' />
+                          <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#007bff' fill='#28a745' />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </Colxx>
+                  </Row>
+
+                  <CardBody style={{paddingTop:'0.5rem', paddingLeft:'1rem', paddingRight:'1rem', paddingBottom:'0.5rem'}}>
+                    <Row>
+                      <Colxx xxs="4" sm="4" md="4">
+                        
+                      </Colxx>
+                      <Colxx xxs="4" sm="4" md="4">
+                        <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
+                          <h1 style={{fontFamily:"'Roboto Condensed', sans-serif"}}>Holdings</h1>
+                        </CardTitle>
+                      </Colxx>
+                      <Colxx xxs="4" sm="4" md="4">
+
+                      </Colxx>
+                    </Row>
+                    <Row style={{paddingLeft:'15px', paddingRight:'15px'}}>
+                      <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                        <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hcshowing === true ? "#849b65" : "#d1c19a", borderBottom: hcshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hcshowing: true, hrshowing: false, hhshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Current</h1></Button>
+                      </Colxx>
+                      <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                        <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hrshowing === true ? "#849b65" : "#d1c19a", borderBottom: hrshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hrshowing: true, hcshowing: false, hhshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Returns</h1></Button>
+                      </Colxx>
+                      <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                        <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hfshowing === true ? "#849b65" : "#d1c19a", borderBottom: hfshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hfshowing: true, hcshowing: false, hrshowing: false, hhshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Fundamentals</h1></Button>
+                      </Colxx>
+                      <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
+                        <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hhshowing === true ? "#849b65" : "#d1c19a", borderBottom: hhshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hhshowing: true, hcshowing: false, hrshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Historicals</h1></Button>
+                      </Colxx>
+                    </Row>
+                    { hcshowing 
+                        ? <div>
+                            <ReactTable
+                              defaultPageSize={6}
+                              data={holdings_c.sort((a, b) => a.ticker.localeCompare(b.ticker))}
+                              columns={hc_column}
+                              minRows={0}
+                              showPageJump={false}
+                              showPageSizeOptions={false}
+                              PaginationComponent={Pagination}
+                            />
+                          </div>
+                        : null
+                    }
+                    { hrshowing 
+                        ? <div>
+                            <ReactTable
+                              defaultPageSize={6}
+                              data={holdings_r.sort((a, b) => a.ticker.localeCompare(b.ticker))}
+                              columns={hr_column}
+                              minRows={0}
+                              showPageJump={false}
+                              showPageSizeOptions={false}
+                              PaginationComponent={Pagination}
+                            />
+                          </div>
+                        : null
+                    }
+                  { hhshowing 
+                      ? <div>
+                          <ReactTable
+                            defaultPageSize={6}
+                            data={holdings_h.sort((a, b) => a.ticker.localeCompare(b.ticker))}
+                            columns={hh_column}
+                            minRows={0}
+                            showPageJump={false}
+                            showPageSizeOptions={false}
+                            PaginationComponent={Pagination}
+                          />
+                        </div>
+                      : null
+                  }
+                  { hfshowing 
+                      ? <div>
+                          <ReactTable
+                            defaultPageSize={6}
+                            data={holdings_f.slice(0, 30).sort((a, b) => a.ticker.localeCompare(b.ticker))}
+                            columns={hf_column}
+                            minRows={0}
+                            showPageJump={false}
+                            showPageSizeOptions={false}
+                            PaginationComponent={Pagination}
+                          />
+                        </div>
+                      : null
+                  }
+                    <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
+                      <IntlMessages  className='roboto-condensed' id={"Performance Statistics"} />
                     </CardTitle>
-                  </Colxx>
-                  <Colxx xxs="2" sm="2" md="2">
-
-                  </Colxx>
-                </Row>
-              <Row>
-                <Colxx xxs="12" sm="12" md="12" padding="0">
-                  <ResponsiveContainer width="96%" aspect={2}>
-                    <AreaChart data={chart_data} margin={{top: 0, right: 0, left: -9, bottom: 0}} padding={{top: 0, right: 10, left: 0, bottom: 0}}>
-                      <CartesianGrid strokeDasharray="3 3"/>
-                      <XAxis dataKey="date" tickFormatter={tickFormatter} domain={['dataMin', 'dataMax']} />
-                      <YAxis/>
-                      <Tooltip labelFormatter={t => new Date(t).toLocaleDateString()} />
-                      <Area type='monotone' dataKey='return' name={strategy_name} stackId="1" label='strategy_name' stroke='#28a745' fill='#007bff' />
-                      <Area type='monotone' dataKey='bench_return' name="S&P 500" stackId="2" label='S&P 500' stroke='#007bff' fill='#28a745' />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </Colxx>
-              </Row>
-
-              <CardBody style={{paddingTop:'0.5rem', paddingLeft:'1rem', paddingRight:'1rem', paddingBottom:'0.5rem'}}>
-                <Row>
-                  <Colxx xxs="4" sm="4" md="4">
-                    
-                  </Colxx>
-                  <Colxx xxs="4" sm="4" md="4">
-                    <CardTitle style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
-                      <h1 style={{fontFamily:"'Roboto Condensed', sans-serif"}}>Holdings</h1>
-                    </CardTitle>
-                  </Colxx>
-                  <Colxx xxs="4" sm="4" md="4">
-
-                  </Colxx>
-                </Row>
-                <Row style={{paddingLeft:'15px', paddingRight:'15px'}}>
-                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hcshowing === true ? "#849b65" : "#d1c19a", borderBottom: hcshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hcshowing: true, hrshowing: false, hhshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Current</h1></Button>
-                  </Colxx>
-                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hrshowing === true ? "#849b65" : "#d1c19a", borderBottom: hrshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hrshowing: true, hcshowing: false, hhshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Returns</h1></Button>
-                  </Colxx>
-                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hfshowing === true ? "#849b65" : "#d1c19a", borderBottom: hfshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hfshowing: true, hcshowing: false, hrshowing: false, hhshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Fundamentals</h1></Button>
-                  </Colxx>
-                  <Colxx xxs="6" md="6" lg="3" className="mb-3 b-hover" style={{ display: 'flex', justifyContent: 'center', margin: '0', padding: '0' }}>
-                    <Button variant="outline-light" style={{ padding: '0', fontWeight: '600', borderRadius: '3px', backgroundColor: '#fff', border: "0px solid white", color: hhshowing === true ? "#849b65" : "#d1c19a", borderBottom: hhshowing === true ? "5px solid #849b65" : "5px solid  #fff" }} onClick={() => this.setState({ hhshowing: true, hcshowing: false, hrshowing: false, hfshowing: false })}><h1 style={{ padding: '0', margin: '0'}}>Historicals</h1></Button>
-                  </Colxx>
-                </Row>
-                { hcshowing 
-                    ? <div>
-                        <ReactTable
-                          defaultPageSize={6}
-                          data={holdings_c.sort((a, b) => a.ticker.localeCompare(b.ticker))}
-                          columns={hc_column}
-                          minRows={0}
-                          showPageJump={false}
-                          showPageSizeOptions={false}
-                          PaginationComponent={Pagination}
-                        />
-                      </div>
-                    : null
-                }
-                { hrshowing 
-                    ? <div>
-                        <ReactTable
-                          defaultPageSize={6}
-                          data={holdings_r.sort((a, b) => a.ticker.localeCompare(b.ticker))}
-                          columns={hr_column}
-                          minRows={0}
-                          showPageJump={false}
-                          showPageSizeOptions={false}
-                          PaginationComponent={Pagination}
-                        />
-                      </div>
-                    : null
-                }
-              { hhshowing 
-                  ? <div>
-                      <ReactTable
-                        defaultPageSize={6}
-                        data={holdings_h.sort((a, b) => a.ticker.localeCompare(b.ticker))}
-                        columns={hh_column}
-                        minRows={0}
-                        showPageJump={false}
-                        showPageSizeOptions={false}
-                        PaginationComponent={Pagination}
-                      />
-                    </div>
-                  : null
-              }
-              { hfshowing 
-                  ? <div>
-                      <ReactTable
-                        defaultPageSize={6}
-                        data={holdings_f.slice(0, 30).sort((a, b) => a.ticker.localeCompare(b.ticker))}
-                        columns={hf_column}
-                        minRows={0}
-                        showPageJump={false}
-                        showPageSizeOptions={false}
-                        PaginationComponent={Pagination}
-                      />
-                    </div>
-                  : null
-              }
-                <CardTitle style={{textAlign:'center', marginBottom:'5px'}}>
-                  <IntlMessages  className='roboto-condensed' id={"Performance Statistics"} />
-                </CardTitle>
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>Return %</th>
-                      <th>Model</th>
-                      <th>S&P 500 (SPY)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {stats_perf.reverse().map(( listValue, index ) => {
-                      
-                      return (
-                        <tr key={index}>
-                          <td>{listValue.return_pct}</td>
-                          <td>{listValue.model}</td>
-                          <td>{listValue.snp_500_spy}</td>
+                    <Table>
+                      <thead>
+                        <tr>
+                          <th>Return %</th>
+                          <th>Model</th>
+                          <th>S&P 500 (SPY)</th>
                         </tr>
-                      );
-                    })}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
+                      </thead>
+                      <tbody>
+                        {stats_perf.reverse().map(( listValue, index ) => {
+                          
+                          return (
+                            <tr key={index}>
+                              <td>{listValue.return_pct}</td>
+                              <td>{listValue.model}</td>
+                              <td>{listValue.snp_500_spy}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </Table>
+                  </CardBody>
+                </Card>
+              </Colxx>
+            </Row>
           </Colxx>
 
           <Colxx xxs="12" sm="6" md="4" style={{paddingRight:'10px', paddingLeft:'10px'}}>
