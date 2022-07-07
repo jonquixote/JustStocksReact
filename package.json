@@ -44,7 +44,7 @@
     "history": "^4.10.1",
     "http-proxy-middleware": "^1.0.3",
     "install": "^0.13.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.28",
     "mousetrap": "^1.6.5",
     "node-gyp": "^6.1.0",
